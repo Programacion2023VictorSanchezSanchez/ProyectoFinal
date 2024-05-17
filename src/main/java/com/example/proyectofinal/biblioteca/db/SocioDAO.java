@@ -82,6 +82,7 @@ public class SocioDAO {
     //posición actual a un objeto Persona
     private Socio resultSetToSocio(ResultSet resultSet) throws SQLException {
         Socio socio = new Socio(
+                resultSet.getInt("idSocio"),
                 resultSet.getString("nombre"),
                 resultSet.getString("apellidos"),
                 resultSet.getString("telefono"),
@@ -89,10 +90,12 @@ public class SocioDAO {
         return socio;
     }
 
+    // Pruebas
     public static void main(String[] args) {
         SocioDAO socioDAO = new SocioDAO();
         try{
             List<Socio> socioList = socioDAO.getAllSocios();
+            System.out.println(socioList.toString());
         } catch (SQLException e){
             e.printStackTrace();
         }

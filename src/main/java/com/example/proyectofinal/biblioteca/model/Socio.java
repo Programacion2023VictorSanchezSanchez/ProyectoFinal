@@ -11,9 +11,14 @@ public class Socio {
     // Constructores
 
     public Socio() {
-        this("Mariano", "Rajoy", "987654321", "ejemplo@gmail.com");
+        this(999,"Mariano", "Rajoy", "987654321", "ejemplo@gmail.com");
     }
     public Socio(String nombre, String apellidos, String telefono, String email) {
+        this(999, nombre, apellidos, telefono, email);
+
+    }
+    public Socio(int idSocio, String nombre, String apellidos, String telefono, String email){
+        setIdSocio(idSocio);
         setNombre(nombre);
         setApellidos(apellidos);
         setTelefono(telefono);
@@ -42,7 +47,7 @@ public class Socio {
         this.idSocio = idSocio;
     }
     public void setNombre(String nombre) throws IllegalArgumentException {
-        if (nombre.isEmpty()) {
+        if (nombre == null || nombre.isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede estar vacío");
         }
         this.nombre = nombre;
@@ -63,4 +68,15 @@ public class Socio {
         this.email = email;
     }
 
+    // To String
+    @Override
+    public String toString() {
+        return "Socio{" +
+                "idSocio=" + this.idSocio +
+                ", nombre='" + this.nombre + '\'' +
+                ", apellidos='" + this.apellidos + '\'' +
+                ", telefono='" + this.telefono + '\'' +
+                ", email='" + this.email + '\'' +
+                '}';
+    }
 }

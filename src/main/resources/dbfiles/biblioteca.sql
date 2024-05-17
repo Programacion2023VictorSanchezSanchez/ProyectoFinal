@@ -47,8 +47,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Libro` (
   `anyo` INT NOT NULL,
   `Genero` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`ISBN`),
-  INDEX `fk_Libro_Autor_idx` (`Autor` ASC) VISIBLE,
-  INDEX `fk_Libro_Genero1_idx` (`Genero` ASC) VISIBLE,
+  INDEX `fk_Libro_Autor_idx` (`Autor` ASC),
+  INDEX `fk_Libro_Genero1_idx` (`Genero` ASC),
   CONSTRAINT `fk_Libro_Autor`
     FOREIGN KEY (`Autor`)
     REFERENCES `mydb`.`Autor` (`idAutor`)
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`EjemplaresDisponibles` (
   `disponibles` INT NOT NULL,
   `Libro_ISBN` VARCHAR(13) NOT NULL,
   PRIMARY KEY (`disponibles`, `Libro_ISBN`),
-  INDEX `fk_EjemplaresDisponibles_Libro1_idx` (`Libro_ISBN` ASC) VISIBLE,
+  INDEX `fk_EjemplaresDisponibles_Libro1_idx` (`Libro_ISBN` ASC),
   CONSTRAINT `fk_EjemplaresDisponibles_Libro1`
     FOREIGN KEY (`Libro_ISBN`)
     REFERENCES `mydb`.`Libro` (`ISBN`)
@@ -102,8 +102,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Prestamo` (
   `fecha_fin` DATE NOT NULL,
   `isDevuelto` TINYINT NULL,
   PRIMARY KEY (`EjemplaresDisponibles_disponibles`, `EjemplaresDisponibles_Libro_ISBN`, `Socio_idSocio`, `fecha_inicio`),
-  INDEX `fk_EjemplaresDisponibles_has_Socio_Socio1_idx` (`Socio_idSocio` ASC) VISIBLE,
-  INDEX `fk_EjemplaresDisponibles_has_Socio_EjemplaresDisponibles1_idx` (`EjemplaresDisponibles_disponibles` ASC, `EjemplaresDisponibles_Libro_ISBN` ASC) VISIBLE,
+  INDEX `fk_EjemplaresDisponibles_has_Socio_Socio1_idx` (`Socio_idSocio` ASC),
+  INDEX `fk_EjemplaresDisponibles_has_Socio_EjemplaresDisponibles1_idx` (`EjemplaresDisponibles_disponibles` ASC, `EjemplaresDisponibles_Libro_ISBN` ASC),
   CONSTRAINT `fk_EjemplaresDisponibles_has_Socio_EjemplaresDisponibles1`
     FOREIGN KEY (`EjemplaresDisponibles_disponibles` , `EjemplaresDisponibles_Libro_ISBN`)
     REFERENCES `mydb`.`EjemplaresDisponibles` (`disponibles` , `Libro_ISBN`)
@@ -118,5 +118,5 @@ ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;	
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

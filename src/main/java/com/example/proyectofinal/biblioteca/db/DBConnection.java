@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DBConnection {
     // URL de conexión a la base de datos MySQL
-    private static final String URL = "jdbc:mysql://localhost:3306/rigemdb";
-    private static final String USERNAME = "usuario";
-    private static final String PASSWORD = "usuario";
+    private static final String URL = "jdbc:mysql://localhost:3306/mydb";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "usuarioroot";
 
     private static Connection connection;
 
