@@ -43,7 +43,10 @@ public class Socio {
     }
 
     // Setters
-    public void setIdSocio(int idSocio) {
+    public void setIdSocio(int idSocio) throws IllegalArgumentException {
+        if (idSocio <= 0) {
+            throw new IllegalArgumentException("El ID del socio debe ser un número positivo");
+        }
         this.idSocio = idSocio;
     }
     public void setNombre(String nombre) throws IllegalArgumentException {
