@@ -87,7 +87,7 @@ public class PrestamoDAO {
     private Prestamo resultSetToPrestamo(ResultSet resultSet) throws SQLException {
         return new Prestamo(
                 resultSet.getInt("idPrestamo"),
-                resultSet.getInt("disponibles"),
+                resultSet.getInt("idEjemplar"),
                 resultSet.getString("ISBN"),
                 resultSet.getInt("idSocio"),
                 resultSet.getDate("fecha_inicio"),
