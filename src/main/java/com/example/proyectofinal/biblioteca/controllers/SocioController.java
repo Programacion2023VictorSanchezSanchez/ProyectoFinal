@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la gestión de socios en la interfaz gráfica.
+ */
 public class SocioController implements Initializable {
 
     @FXML
@@ -86,6 +89,9 @@ public class SocioController implements Initializable {
 
     private final SocioDAO socioDAO = new SocioDAO();
 
+    /**
+     * Método de inicialización para configurar la interfaz gráfica.
+     */
     @FXML
     public void initialize() {
         // Configurar las columnas de la TableView
@@ -99,6 +105,11 @@ public class SocioController implements Initializable {
         cargarTodosLosSocios();
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Guardar".
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Socio socio = obtenerDatosSocioDeFormulario();
@@ -112,12 +123,17 @@ public class SocioController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Borrar".
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickBorrar(ActionEvent event) {
         Socio socio = tvSocios.getSelectionModel().getSelectedItem();
         if (socio != null) {
             try {
-                socioDAO.deleteSocioByid(socio.getIdSocio());
+                socioDAO.deleteSocioById(socio.getIdSocio());
                 cargarTodosLosSocios(); // Recargar la tabla después de la eliminación
                 limpiarFormulario();
                 mostrarMensaje("Éxito", "Socio borrado exitosamente", Alert.AlertType.INFORMATION);
@@ -129,6 +145,11 @@ public class SocioController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Modificar".
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickModificar(ActionEvent event) {
         Socio socio = obtenerDatosSocioDeFormulario();
@@ -142,34 +163,39 @@ public class SocioController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Buscar".
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickBuscar(ActionEvent event) {
         String idSocioABuscar = tfIdBuscar.getText().trim();
         String nombreABuscar = tfNombreBuscar.getText().trim();
 
         try {
-            if(!idSocioABuscar.isEmpty() && !nombreABuscar.isEmpty() ){
-                Socio socioEncontrado = socioDAO.getSocioByidName(Integer.parseInt(idSocioABuscar), nombreABuscar);
-                if(socioEncontrado != null){
+            if (!idSocioABuscar.isEmpty() && !nombreABuscar.isEmpty()) {
+                Socio socioEncontrado = socioDAO.getSocioByIdName(Integer.parseInt(idSocioABuscar), nombreABuscar);
+                if (socioEncontrado != null) {
                     tvSocios.getItems().clear(); // Limpiar la tabla
                     tvSocios.getItems().add(socioEncontrado); // Agregar el socio encontrado a la tabla
-                } else{
+                } else {
                     mostrarAdvertencia("No se encontró ningún socio con el ID y el nombre proporcionado.");
                 }
-            }else if(!idSocioABuscar.isEmpty()){
-                Socio socioEncontrado = socioDAO.getSocioByid(Integer.parseInt(idSocioABuscar));
-                if(socioEncontrado != null){
+            } else if (!idSocioABuscar.isEmpty()) {
+                Socio socioEncontrado = socioDAO.getSocioById(Integer.parseInt(idSocioABuscar));
+                if (socioEncontrado != null) {
                     tvSocios.getItems().clear(); // Limpiar la tabla
                     tvSocios.getItems().add(socioEncontrado); // Agregar el socio encontrado a la tabla
-                }else{
+                } else {
                     mostrarAdvertencia("No se encontró ningún socio con el ID proporcionado.");
                 }
-            } else{
+            } else {
                 List<Socio> listaSocios = socioDAO.getSociosByName(nombreABuscar);
-                if(!listaSocios.isEmpty()){
+                if (!listaSocios.isEmpty()) {
                     tvSocios.getItems().clear(); // Limpiar la tabla
                     tvSocios.getItems().addAll(listaSocios); // Agregar el socio encontrado a la tabla
-                } else{
+                } else {
                     mostrarAdvertencia("No se encontró ningún socio con el Nombre proporcionado.");
                 }
 
@@ -177,16 +203,24 @@ public class SocioController implements Initializable {
 
         } catch (SQLException e) {
             mostrarError("Error al buscar el socio: " + e.getMessage());
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             mostrarAdvertencia("El id del socio debe de ser un número entero.");
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Mostrar Todos".
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickMostrarTodos(ActionEvent event) {
         cargarTodosLosSocios();
     }
 
+    /**
+     * Maneja el evento de clic en la tabla de socios.
+     */
     @FXML
     private void onClickTvAlumnos() {
         Socio socioSeleccionado = tvSocios.getSelectionModel().getSelectedItem();
@@ -196,6 +230,9 @@ public class SocioController implements Initializable {
         }
     }
 
+    /**
+     * Carga todos los socios en la tabla.
+     */
     private void cargarTodosLosSocios() {
         try {
             List<Socio> socios = socioDAO.getAllSocios();
@@ -206,6 +243,11 @@ public class SocioController implements Initializable {
         }
     }
 
+    /**
+     * Obtiene los datos del socio del formulario.
+     *
+     * @return Un objeto Socio con los datos del formulario.
+     */
     @FXML
     private Socio obtenerDatosSocioDeFormulario() {
         int idSocio;
@@ -230,7 +272,11 @@ public class SocioController implements Initializable {
         }
     }
 
-
+    /**
+     * Muestra los datos del socio en el formulario.
+     *
+     * @param socio El objeto Socio cuyos datos se mostrarán.
+     */
     private void mostrarDatosSocioEnFormulario(Socio socio) {
         tfIdSocio.setText(String.valueOf(socio.getIdSocio()));
         tfNombre.setText(socio.getNombre());
@@ -239,7 +285,9 @@ public class SocioController implements Initializable {
         tfEmail.setText(socio.getEmail());
     }
 
-
+    /**
+     * Limpia los campos del formulario.
+     */
     private void limpiarFormulario() {
         tfIdSocio.clear();
         tfNombre.clear();
@@ -248,6 +296,11 @@ public class SocioController implements Initializable {
         tfEmail.clear();
     }
 
+    /**
+     * Muestra un mensaje de error en una alerta.
+     *
+     * @param mensaje El mensaje de error.
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -256,6 +309,11 @@ public class SocioController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje de advertencia en una alerta.
+     *
+     * @param mensaje El mensaje de advertencia.
+     */
     private void mostrarAdvertencia(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -264,6 +322,13 @@ public class SocioController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje en una alerta.
+     *
+     * @param titulo   El título de la alerta.
+     * @param contenido El contenido del mensaje.
+     * @param tipo     El tipo de alerta.
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -272,11 +337,18 @@ public class SocioController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Método de inicialización de la interfaz gráfica.
+     *
+     * @param url             La URL de localización.
+     * @param resourceBundle El conjunto de recursos.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
 }
+
 
 
 
