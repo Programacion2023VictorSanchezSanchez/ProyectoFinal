@@ -9,7 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase proporciona métodos para interactuar con la tabla Autor en la base de datos.
+ */
 public class AutorDAO {
+
     // Objeto de conexión a la base de datos.
     private final Connection connection = DBConnection.getConnection();
 
@@ -20,7 +24,12 @@ public class AutorDAO {
     private static final String UPDATE_QUERY = "UPDATE Autor SET nombre = ? WHERE idAutor = ?";
     private static final String DELETE_QUERY = "DELETE FROM Autor WHERE idAutor = ?";
 
-    // Método para insertar un nuevo autor en la base de datos
+    /**
+     * Inserta un nuevo autor en la base de datos.
+     *
+     * @param autor El objeto Autor a insertar.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void insertAutor(Autor autor) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, autor.getNombre());
@@ -37,7 +46,12 @@ public class AutorDAO {
         }
     }
 
-    // Método para obtener todos los autores de la base de datos
+    /**
+     * Obtiene todos los autores de la base de datos.
+     *
+     * @return Una lista de objetos Autor.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public List<Autor> getAllAutores() throws SQLException {
         List<Autor> autores = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
@@ -50,7 +64,13 @@ public class AutorDAO {
         return autores;
     }
 
-    // Método para obtener un autor por su ID
+    /**
+     * Obtiene un autor de la base de datos por su ID.
+     *
+     * @param idAutor El ID del autor a buscar.
+     * @return El objeto Autor encontrado o null si no se encuentra.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public Autor getAutorById(int idAutor) throws SQLException {
         Autor autor = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
@@ -63,7 +83,12 @@ public class AutorDAO {
         return autor;
     }
 
-    // Método para actualizar los datos de un autor en la base de datos
+    /**
+     * Actualiza los datos de un autor en la base de datos.
+     *
+     * @param autor El objeto Autor con los nuevos datos.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void updateAutor(Autor autor) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setString(1, autor.getNombre());
@@ -72,7 +97,12 @@ public class AutorDAO {
         }
     }
 
-    // Método para eliminar un autor de la base de datos por su ID
+    /**
+     * Elimina un autor de la base de datos por su ID.
+     *
+     * @param idAutor El ID del autor a eliminar.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void deleteAutorById(int idAutor) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
             statement.setInt(1, idAutor);
@@ -80,7 +110,13 @@ public class AutorDAO {
         }
     }
 
-    // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Autor
+    /**
+     * Convierte un ResultSet a un objeto Autor.
+     *
+     * @param resultSet El ResultSet a convertir.
+     * @return Un objeto Autor.
+     * @throws SQLException Si ocurre un error al acceder a la base de datos.
+     */
     private Autor resultSetToAutor(ResultSet resultSet) throws SQLException {
         return new Autor(
                 resultSet.getInt("idAutor"),
@@ -88,4 +124,5 @@ public class AutorDAO {
     }
 
 }
+
 

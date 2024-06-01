@@ -1,7 +1,6 @@
 package com.example.proyectofinal.biblioteca.db;
 
 import com.example.proyectofinal.biblioteca.model.Libro;
-import com.example.proyectofinal.biblioteca.model.Socio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase proporciona métodos para interactuar con la tabla Libro en la base de datos.
+ */
 public class LibroDAO {
+
     // Objeto de conexión a la base de datos.
     private final Connection connection = DBConnection.getConnection();
 
@@ -18,14 +21,17 @@ public class LibroDAO {
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, idAutor, anyo) VALUES (?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
-
     private static final String SELECT_BY_ISBN_TITLE_QUERY = "SELECT * FROM Libro WHERE ISBN = ? AND titulo = ?";
-
     private static final String SELECT_BY_TITLE_QUERY = "SELECT * FROM Libro WHERE titulo = ?";
     private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, idAutor = ?, anyo = ? WHERE ISBN = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 
-    // Método para insertar un nuevo libro en la base de datos
+    /**
+     * Inserta un nuevo libro en la base de datos.
+     *
+     * @param libro El objeto Libro a insertar.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void insertLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
             statement.setString(1, libro.getISBN());
@@ -36,7 +42,12 @@ public class LibroDAO {
         }
     }
 
-    // Método para obtener todos los libros de la base de datos
+    /**
+     * Obtiene todos los libros de la base de datos.
+     *
+     * @return Una lista de objetos Libro.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public List<Libro> getAllLibros() throws SQLException {
         List<Libro> libros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
@@ -49,7 +60,13 @@ public class LibroDAO {
         return libros;
     }
 
-    // Método para obtener un libro por su ISBN
+    /**
+     * Obtiene un libro de la base de datos por su ISBN.
+     *
+     * @param ISBN El ISBN del libro a buscar.
+     * @return El objeto Libro encontrado o null si no se encuentra.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public Libro getLibroByISBN(String ISBN) throws SQLException {
         Libro libro = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
@@ -62,9 +79,15 @@ public class LibroDAO {
         return libro;
     }
 
-    // Método para obtener un libro por su titulo
+    /**
+     * Obtiene libros de la base de datos por su título.
+     *
+     * @param titulo El título del libro a buscar.
+     * @return Una lista de objetos Libro con el mismo título.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public List<Libro> getLibrosByTitle(String titulo) throws SQLException {
-        List <Libro> listaLibros = new ArrayList<>();
+        List<Libro> listaLibros = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_TITLE_QUERY)) {
             statement.setString(1, titulo);
             ResultSet resultSet = statement.executeQuery();
@@ -76,7 +99,14 @@ public class LibroDAO {
         return listaLibros;
     }
 
-    // Método para obtener una persona por su id y nombre
+    /**
+     * Obtiene un libro de la base de datos por su ISBN y título.
+     *
+     * @param ISBN   El ISBN del libro a buscar.
+     * @param titulo El título del libro a buscar.
+     * @return El objeto Libro encontrado o null si no se encuentra.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public Libro getLibroByISBNTitle(String ISBN, String titulo) throws SQLException {
         Libro libro = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_TITLE_QUERY)) {
@@ -90,7 +120,12 @@ public class LibroDAO {
         return libro;
     }
 
-    // Método para actualizar los datos de un libro en la base de datos
+    /**
+     * Actualiza los datos de un libro en la base de datos.
+     *
+     * @param libro El objeto Libro con los nuevos datos.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void updateLibro(Libro libro) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setString(1, libro.getTitulo());
@@ -101,7 +136,12 @@ public class LibroDAO {
         }
     }
 
-    // Método para eliminar un libro de la base de datos por su ISBN
+    /**
+     * Elimina un libro de la base de datos por su ISBN.
+     *
+     * @param ISBN El ISBN del libro a eliminar.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void deleteLibroByISBN(String ISBN) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
             statement.setString(1, ISBN);
@@ -109,7 +149,13 @@ public class LibroDAO {
         }
     }
 
-    // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Libro
+    /**
+     * Convierte un ResultSet a un objeto Libro.
+     *
+     * @param resultSet El ResultSet a convertir.
+     * @return Un objeto Libro.
+     * @throws SQLException Si ocurre un error al acceder a la base de datos.
+     */
     private Libro resultSetToLibro(ResultSet resultSet) throws SQLException {
         return new Libro(
                 resultSet.getString("ISBN"),
@@ -117,7 +163,6 @@ public class LibroDAO {
                 resultSet.getInt("idAutor"),
                 resultSet.getInt("anyo"));
     }
-
-
 }
+
 

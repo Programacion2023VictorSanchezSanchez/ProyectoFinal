@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la gestión de géneros en la biblioteca.
+ */
 public class GeneroController implements Initializable {
 
     @FXML
@@ -47,6 +50,9 @@ public class GeneroController implements Initializable {
 
     private final GeneroDAO generoDAO = new GeneroDAO();
 
+    /**
+     * Inicializa el controlador.
+     */
     public void initialize() {
         // Configurar la columna de la TableView
         tcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
@@ -55,6 +61,12 @@ public class GeneroController implements Initializable {
         cargarTodosLosGeneros();
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Guardar".
+     * Guarda un Genero en la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickGuardar(ActionEvent event) {
         String nombre = tfNombre.getText().trim();
@@ -73,6 +85,12 @@ public class GeneroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Borrar".
+     * Borra un genero de la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickBorrar(ActionEvent event) {
         Genero genero = tvGeneros.getSelectionModel().getSelectedItem();
@@ -90,6 +108,12 @@ public class GeneroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Modificar".
+     * Modifica un genero en la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickModificar(ActionEvent event) {
         String nombre = tfNombre.getText().trim();
@@ -113,6 +137,12 @@ public class GeneroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Buscar".
+     * Busca generos en la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickBuscar(ActionEvent event) {
         String nombreABuscar = tfGeneroBuscar.getText().trim();
@@ -130,11 +160,21 @@ public class GeneroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Mostrar Todos".
+     * Muestra todos los generos en la tabla.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickMostrarTodos(ActionEvent event) {
         cargarTodosLosGeneros();
     }
 
+    /**
+     * Maneja el evento de selección en la tabla de generos.
+     * Muestra los detalles del genero seleccionado en el formulario.
+     */
     @FXML
     private void onClickTvGeneros() {
         Genero generoSeleccionado = tvGeneros.getSelectionModel().getSelectedItem();
@@ -144,6 +184,9 @@ public class GeneroController implements Initializable {
         }
     }
 
+    /**
+     * Carga todos los géneros en la TableView.
+     */
     private void cargarTodosLosGeneros() {
         try {
             List<Genero> generos = generoDAO.getAllGeneros();
@@ -154,14 +197,25 @@ public class GeneroController implements Initializable {
         }
     }
 
+    /**
+     * Muestra los datos de un género en el formulario.
+     * @param genero Objeto Genero a mostrar.
+     */
     private void mostrarDatosGeneroEnFormulario(Genero genero) {
         tfNombre.setText(genero.getNombre());
     }
 
+    /**
+     * Limpia el formulario.
+     */
     private void limpiarFormulario() {
         tfNombre.clear();
     }
 
+    /**
+     * Muestra un mensaje de error.
+     * @param mensaje Mensaje de error a mostrar.
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -170,6 +224,10 @@ public class GeneroController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra una advertencia.
+     * @param mensaje Mensaje de advertencia a mostrar.
+     */
     private void mostrarAdvertencia(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -178,6 +236,12 @@ public class GeneroController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje.
+     * @param titulo Título del mensaje.
+     * @param contenido Contenido del mensaje.
+     * @param tipo Tipo de mensaje.
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

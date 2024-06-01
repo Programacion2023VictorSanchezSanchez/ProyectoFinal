@@ -2,7 +2,6 @@ package com.example.proyectofinal.biblioteca.controllers;
 
 import com.example.proyectofinal.biblioteca.db.LibroDAO;
 import com.example.proyectofinal.biblioteca.model.Libro;
-import com.example.proyectofinal.biblioteca.model.Socio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la gestión de libros en la biblioteca.
+ */
 public class LibroController implements Initializable {
 
     @FXML
@@ -78,6 +80,10 @@ public class LibroController implements Initializable {
 
     private final LibroDAO libroDAO = new LibroDAO();
 
+    /**
+     * Inicializa el controlador después de que su elemento raíz haya sido completamente procesado.
+     * Configura las columnas de la tabla y carga todos los libros en ella.
+     */
     public void initialize() {
         // Configurar las columnas de la TableView
         tcISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
@@ -89,6 +95,12 @@ public class LibroController implements Initializable {
         cargarTodosLosLibros();
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Guardar".
+     * Guarda un libro en la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Libro libro = obtenerDatosLibroDeFormulario();
@@ -104,6 +116,12 @@ public class LibroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Borrar".
+     * Borra un libro de la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickBorrar(ActionEvent event) {
         Libro libro = tvLibros.getSelectionModel().getSelectedItem();
@@ -121,6 +139,12 @@ public class LibroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Modificar".
+     * Modifica un libro en la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickModificar(ActionEvent event) {
         Libro libro = obtenerDatosLibroDeFormulario();
@@ -136,6 +160,12 @@ public class LibroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Buscar".
+     * Busca libros en la base de datos.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickBuscar(ActionEvent event) {
         String isbnABuscar = tfISBNBuscar.getText().trim();
@@ -176,11 +206,21 @@ public class LibroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Mostrar Todos".
+     * Muestra todos los libros en la tabla.
+     *
+     * @param event el evento de acción
+     */
     @FXML
     private void onClickMostrarTodos(ActionEvent event) {
         cargarTodosLosLibros();
     }
 
+    /**
+     * Maneja el evento de selección en la tabla de libros.
+     * Muestra los detalles del libro seleccionado en el formulario.
+     */
     @FXML
     private void onClickTvLibros() {
         Libro libroSeleccionado = tvLibros.getSelectionModel().getSelectedItem();
@@ -190,6 +230,9 @@ public class LibroController implements Initializable {
         }
     }
 
+    /**
+     * Carga todos los libros desde la base de datos y los muestra en la tabla.
+     */
     private void cargarTodosLosLibros() {
         try {
             List<Libro> libros = libroDAO.getAllLibros();
@@ -200,6 +243,11 @@ public class LibroController implements Initializable {
         }
     }
 
+    /**
+     * Obtiene los datos de libro ingresados en el formulario.
+     *
+     * @return el libro con los datos ingresados
+     */
     private Libro obtenerDatosLibroDeFormulario() {
         String ISBN = tfISBN.getText().trim();
         String nombre = tfNombre.getText().trim();
@@ -223,6 +271,11 @@ public class LibroController implements Initializable {
         }
     }
 
+    /**
+     * Muestra los datos del libro especificado en el formulario.
+     *
+     * @param libro el libro cuyos datos se mostrarán
+     */
     private void mostrarDatosLibroEnFormulario(Libro libro) {
         tfISBN.setText(libro.getISBN());
         tfNombre.setText(libro.getTitulo());
@@ -230,6 +283,9 @@ public class LibroController implements Initializable {
         tfAnyo.setText(String.valueOf(libro.getAnyo()));
     }
 
+    /**
+     * Limpia todos los campos del formulario.
+     */
     private void limpiarFormulario() {
         tfISBN.clear();
         tfNombre.clear();
@@ -237,6 +293,11 @@ public class LibroController implements Initializable {
         tfAnyo.clear();
     }
 
+    /**
+     * Muestra un mensaje de error en un diálogo emergente.
+     *
+     * @param mensaje el mensaje de error a mostrar
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -245,6 +306,11 @@ public class LibroController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra una advertencia en un diálogo emergente.
+     *
+     * @param mensaje el mensaje de advertencia a mostrar
+     */
     private void mostrarAdvertencia(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -253,6 +319,13 @@ public class LibroController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje con título y contenido en un diálogo emergente.
+     *
+     * @param titulo el título del mensaje
+     * @param contenido el contenido del mensaje
+     * @param tipo el tipo de mensaje
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -263,6 +336,7 @@ public class LibroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Método de inicialización de la interfaz Initializable
     }
 }
 

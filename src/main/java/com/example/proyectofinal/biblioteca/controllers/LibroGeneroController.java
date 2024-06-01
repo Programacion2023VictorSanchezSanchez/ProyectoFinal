@@ -13,6 +13,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la vista de gestión de relaciones libro-género.
+ */
 public class LibroGeneroController implements Initializable {
 
     @FXML
@@ -53,6 +56,9 @@ public class LibroGeneroController implements Initializable {
 
     private final LibroGeneroDAO libroGeneroDAO = new LibroGeneroDAO();
 
+    /**
+     * Inicializa la vista y configura las columnas de la tabla.
+     */
     public void initialize() {
         // Configurar las columnas de la TableView
         tcLibroISBN.setCellValueFactory(new PropertyValueFactory<>("libroISBN"));
@@ -62,6 +68,10 @@ public class LibroGeneroController implements Initializable {
         cargarTodosLosLibroGeneros();
     }
 
+    /**
+     * Maneja el evento de clic en el botón Guardar.
+     * Guarda una nueva relación libro-género en la base de datos.
+     */
     @FXML
     private void onClickGuardar(ActionEvent event) {
         String libroISBN = tfLibroISBN.getText().trim();
@@ -81,6 +91,10 @@ public class LibroGeneroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón Borrar.
+     * Borra una relación libro-género de la base de datos.
+     */
     @FXML
     private void onClickBorrar(ActionEvent event) {
         String libroISBN = tfLibroISBN.getText().trim();
@@ -99,6 +113,10 @@ public class LibroGeneroController implements Initializable {
     }
 
 
+    /**
+     * Maneja el evento de clic en el botón Buscar.
+     * Busca relaciones libro-género en la base de datos.
+     */
     @FXML
     private void onClickBuscar(ActionEvent event) {
         String libroISBNBuscar = tfISBNBuscar.getText().trim();
@@ -138,11 +156,19 @@ public class LibroGeneroController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón Mostrar Todos.
+     * Carga todas las relaciones libro-género en la TableView.
+     */
     @FXML
     private void onClickMostrarTodos(ActionEvent event) {
         cargarTodosLosLibroGeneros();
     }
 
+    /**
+     * Maneja el evento de selección en la TableView.
+     * Muestra los datos de la relación libro-género seleccionada en el formulario.
+     */
     @FXML
     private void onClickTvLibroGenero() {
         LibroGenero libroGeneroSeleccionado = tvLibroGenero.getSelectionModel().getSelectedItem();
@@ -152,6 +178,10 @@ public class LibroGeneroController implements Initializable {
         }
     }
 
+
+    /**
+     * Método para cargar todas las relaciones libro-género en la TableView.
+     */
     private void cargarTodosLosLibroGeneros() {
         try {
             List<LibroGenero> libroGeneros = libroGeneroDAO.getAllLibroGeneros();
@@ -162,16 +192,30 @@ public class LibroGeneroController implements Initializable {
         }
     }
 
+    /**
+     * Método para mostrar los datos de una relación libro-género en el formulario.
+     *
+     * @param libroGenero Objeto LibroGenero que contiene los datos a mostrar.
+     */
     private void mostrarDatosLibroGeneroEnFormulario(LibroGenero libroGenero) {
         tfLibroISBN.setText(libroGenero.getLibroISBN());
         tfNombreGenero.setText(libroGenero.getGeneroNombre());
     }
 
+    /**
+     * Método para limpiar los campos del formulario.
+     */
     private void limpiarFormulario() {
         tfLibroISBN.clear();
         tfNombreGenero.clear();
     }
 
+
+    /**
+     * Método para mostrar un mensaje de error.
+     *
+     * @param mensaje Mensaje de error a mostrar.
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -180,6 +224,11 @@ public class LibroGeneroController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Método para mostrar una advertencia.
+     *
+     * @param mensaje Mensaje de advertencia a mostrar.
+     */
     private void mostrarAdvertencia(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -188,6 +237,13 @@ public class LibroGeneroController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Método para mostrar un mensaje con título y contenido.
+     *
+     * @param titulo   Título del mensaje.
+     * @param contenido Contenido del mensaje.
+     * @param tipo     Tipo de alerta a mostrar.
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -198,7 +254,7 @@ public class LibroGeneroController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Método de inicialización de la interfaz Initializable
     }
 }
 

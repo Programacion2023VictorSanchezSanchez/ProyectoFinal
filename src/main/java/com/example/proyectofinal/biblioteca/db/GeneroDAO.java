@@ -9,7 +9,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Esta clase proporciona métodos para interactuar con la tabla Genero en la base de datos.
+ */
 public class GeneroDAO {
+
     // Objeto de conexión a la base de datos.
     private final Connection connection = DBConnection.getConnection();
 
@@ -20,7 +24,12 @@ public class GeneroDAO {
     private static final String UPDATE_QUERY = "UPDATE Genero SET nombre = ? WHERE nombre = ?";
     private static final String DELETE_QUERY = "DELETE FROM Genero WHERE nombre = ?";
 
-    // Método para insertar un nuevo género en la base de datos
+    /**
+     * Inserta un nuevo género en la base de datos.
+     *
+     * @param genero El objeto Genero a insertar.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void insertGenero(Genero genero) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY)) {
             statement.setString(1, genero.getNombre());
@@ -28,7 +37,12 @@ public class GeneroDAO {
         }
     }
 
-    // Método para obtener todos los géneros de la base de datos
+    /**
+     * Obtiene todos los géneros de la base de datos.
+     *
+     * @return Una lista de objetos Genero.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public List<Genero> getAllGeneros() throws SQLException {
         List<Genero> generos = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
@@ -41,7 +55,13 @@ public class GeneroDAO {
         return generos;
     }
 
-    // Método para obtener un género por su nombre
+    /**
+     * Obtiene un género de la base de datos por su nombre.
+     *
+     * @param nombre El nombre del género a buscar.
+     * @return El objeto Genero encontrado o null si no se encuentra.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public Genero getGeneroByName(String nombre) throws SQLException {
         Genero genero = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_NAME_QUERY)) {
@@ -54,7 +74,13 @@ public class GeneroDAO {
         return genero;
     }
 
-    // Método para actualizar los datos de un género en la base de datos
+    /**
+     * Actualiza los datos de un género en la base de datos.
+     *
+     * @param genero    El objeto Genero con los nuevos datos.
+     * @param oldNombre El nombre antiguo del género.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void updateGenero(Genero genero, String oldNombre) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setString(1, genero.getNombre());
@@ -63,7 +89,12 @@ public class GeneroDAO {
         }
     }
 
-    // Método para eliminar un género de la base de datos por su nombre
+    /**
+     * Elimina un género de la base de datos por su nombre.
+     *
+     * @param nombre El nombre del género a eliminar.
+     * @throws SQLException Si ocurre un error al ejecutar la consulta SQL.
+     */
     public void deleteGeneroByName(String nombre) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
             statement.setString(1, nombre);
@@ -71,7 +102,13 @@ public class GeneroDAO {
         }
     }
 
-    // Método auxiliar para mapear un ResultSet en la posición actual a un objeto Genero
+    /**
+     * Convierte un ResultSet a un objeto Genero.
+     *
+     * @param resultSet El ResultSet a convertir.
+     * @return Un objeto Genero.
+     * @throws SQLException Si ocurre un error al acceder a la base de datos.
+     */
     private Genero resultSetToGenero(ResultSet resultSet) throws SQLException {
         return new Genero(resultSet.getString("nombre"));
     }

@@ -1,6 +1,5 @@
 package com.example.proyectofinal.biblioteca.controllers;
 
-import com.example.proyectofinal.biblioteca.model.Libro;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,6 +15,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la gestión de ejemplares en la biblioteca.
+ */
 public class EjemplarController implements Initializable {
 
     @FXML
@@ -62,6 +64,9 @@ public class EjemplarController implements Initializable {
 
     private final EjemplarDAO ejemplarDAO = new EjemplarDAO();
 
+    /**
+     * Inicializa el controlador.
+     */
     public void initialize() {
         // Configurar las columnas de la TableView
         tcIdEjemplar.setCellValueFactory(new PropertyValueFactory<>("idEjemplar"));
@@ -72,6 +77,10 @@ public class EjemplarController implements Initializable {
         cargarTodosLosEjemplares();
     }
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Guardar" para guardar un nuevo ejemplar.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Ejemplar ejemplar = obtenerDatosEjemplarDeFormulario();
@@ -87,6 +96,10 @@ public class EjemplarController implements Initializable {
         }
     }
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Borrar" para eliminar un ejemplar seleccionado.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickBorrar(ActionEvent event) {
         Ejemplar ejemplar = tvEjemplares.getSelectionModel().getSelectedItem();
@@ -104,6 +117,10 @@ public class EjemplarController implements Initializable {
         }
     }
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Modificar" para actualizar un ejemplar existente.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickModificar(ActionEvent event) {
         Ejemplar ejemplar = obtenerDatosEjemplarDeFormulario();
@@ -119,6 +136,10 @@ public class EjemplarController implements Initializable {
         }
     }
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Buscar" para buscar ejemplares por ISBN o por ID.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickBuscar(ActionEvent event) {
         String isbnABuscar = tfISBNBuscar.getText().trim();
@@ -159,11 +180,19 @@ public class EjemplarController implements Initializable {
         }
     }
 
+    /**
+     * Método que se ejecuta al hacer clic en el botón "Mostrar Todos" para cargar todos los ejemplares.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickMostrarTodos(ActionEvent event) {
         cargarTodosLosEjemplares();
     }
 
+    /**
+     * Método que se ejecuta al hacer clic en un elemento de la TableView de ejemplares.
+     * @param event Evento de ratón.
+     */
     @FXML
     private void onClickTvEjemplares(MouseEvent event) {
         Ejemplar ejemplarSeleccionado = tvEjemplares.getSelectionModel().getSelectedItem();
@@ -173,6 +202,9 @@ public class EjemplarController implements Initializable {
         }
     }
 
+    /**
+     * Carga todos los ejemplares en la TableView.
+     */
     private void cargarTodosLosEjemplares() {
         try {
             List<Ejemplar> ejemplares = ejemplarDAO.getAllEjemplares();
@@ -183,6 +215,10 @@ public class EjemplarController implements Initializable {
         }
     }
 
+    /**
+     * Obtiene los datos de un ejemplar del formulario.
+     * @return Objeto Ejemplar con los datos del formulario.
+     */
     private Ejemplar obtenerDatosEjemplarDeFormulario() {
         int idEjemplar;
         String libroISBN = tfLibroISBN.getText().trim();
@@ -204,18 +240,29 @@ public class EjemplarController implements Initializable {
         }
     }
 
+    /**
+     * Muestra los datos de un ejemplar en el formulario.
+     * @param ejemplar Objeto Ejemplar a mostrar.
+     */
     private void mostrarDatosEjemplarEnFormulario(Ejemplar ejemplar) {
         tfIdEjemplar.setText(String.valueOf(ejemplar.getIdEjemplar()));
         tfLibroISBN.setText(ejemplar.getLibroISBN());
         tfEstado.setText(ejemplar.getEstado());
     }
 
+    /**
+     * Limpia el formulario.
+     */
     private void limpiarFormulario() {
         tfIdEjemplar.clear();
         tfLibroISBN.clear();
         tfEstado.clear();
     }
 
+    /**
+     * Muestra un mensaje de error.
+     * @param mensaje Mensaje de error a mostrar.
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -224,6 +271,10 @@ public class EjemplarController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra una advertencia.
+     * @param mensaje Mensaje de advertencia a mostrar.
+     */
     private void mostrarAdvertencia(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -232,6 +283,12 @@ public class EjemplarController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje.
+     * @param titulo Título del mensaje.
+     * @param contenido Contenido del mensaje.
+     * @param tipo Tipo de mensaje.
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);

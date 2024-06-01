@@ -1,8 +1,8 @@
 package com.example.proyectofinal.biblioteca.controllers;
 
+import com.example.proyectofinal.biblioteca.db.AutorDAO;
 import javafx.fxml.Initializable;
 
-import com.example.proyectofinal.biblioteca.db.AutorDAO;
 import com.example.proyectofinal.biblioteca.model.Autor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para la gestión de autores en la biblioteca.
+ */
 public class AutorController implements Initializable {
 
     @FXML
@@ -57,6 +60,9 @@ public class AutorController implements Initializable {
 
     private final AutorDAO autorDAO = new AutorDAO();
 
+    /**
+     * Inicializa el controlador.
+     */
     public void initialize() {
         // Configurar las columnas de la TableView
         tcIdAutor.setCellValueFactory(new PropertyValueFactory<>("idAutor"));
@@ -66,6 +72,10 @@ public class AutorController implements Initializable {
         cargarTodosLosAutores();
     }
 
+    /**
+     * Método para manejar el evento de guardar un autor.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Autor autor = obtenerDatosAutorDeFormulario();
@@ -81,6 +91,10 @@ public class AutorController implements Initializable {
         }
     }
 
+    /**
+     * Método para manejar el evento de borrar un autor.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickBorrar(ActionEvent event) {
         Autor autor = tvAutores.getSelectionModel().getSelectedItem();
@@ -98,6 +112,10 @@ public class AutorController implements Initializable {
         }
     }
 
+    /**
+     * Método para manejar el evento de modificar un autor.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickModificar(ActionEvent event) {
         Autor autor = obtenerDatosAutorDeFormulario();
@@ -113,6 +131,10 @@ public class AutorController implements Initializable {
         }
     }
 
+    /**
+     * Método para manejar el evento de buscar un autor.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickBuscar(ActionEvent event) {
         int idAutorABuscar;
@@ -136,11 +158,18 @@ public class AutorController implements Initializable {
         }
     }
 
+    /**
+     * Método para manejar el evento de mostrar todos los autores.
+     * @param event Evento de acción.
+     */
     @FXML
     private void onClickMostrarTodos(ActionEvent event) {
         cargarTodosLosAutores();
     }
 
+    /**
+     * Método para manejar el evento de clic en la TableView de autores.
+     */
     @FXML
     private void onClickTvAutores() {
         Autor autorSeleccionado = tvAutores.getSelectionModel().getSelectedItem();
@@ -150,6 +179,9 @@ public class AutorController implements Initializable {
         }
     }
 
+    /**
+     * Carga todos los autores en la TableView.
+     */
     private void cargarTodosLosAutores() {
         try {
             List<Autor> autores = autorDAO.getAllAutores();
@@ -160,6 +192,10 @@ public class AutorController implements Initializable {
         }
     }
 
+    /**
+     * Obtiene los datos de autor ingresados en el formulario.
+     * @return Objeto Autor con los datos del formulario.
+     */
     private Autor obtenerDatosAutorDeFormulario() {
         int idAutor;
         String nombre = tfNombre.getText().trim();
@@ -180,16 +216,27 @@ public class AutorController implements Initializable {
         }
     }
 
+    /**
+     * Muestra los datos de un autor en el formulario.
+     * @param autor Objeto Autor a mostrar.
+     */
     private void mostrarDatosAutorEnFormulario(Autor autor) {
         tfIdAutor.setText(String.valueOf(autor.getIdAutor()));
         tfNombre.setText(autor.getNombre());
     }
 
+    /**
+     * Limpia el formulario.
+     */
     private void limpiarFormulario() {
         tfIdAutor.clear();
         tfNombre.clear();
     }
 
+    /**
+     * Muestra un mensaje de error.
+     * @param mensaje Mensaje de error a mostrar.
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -198,6 +245,10 @@ public class AutorController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra una advertencia.
+     * @param mensaje Mensaje de advertencia a mostrar.
+     */
     private void mostrarAdvertencia(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -206,6 +257,12 @@ public class AutorController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje.
+     * @param titulo Título del mensaje.
+     * @param contenido Contenido del mensaje.
+     * @param tipo Tipo de mensaje.
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
