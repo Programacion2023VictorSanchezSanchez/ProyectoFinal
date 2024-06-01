@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="729.0" prefWidth="1007.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectofinal.biblioteca.controllers.PrestamoController">
+    <children>
+        <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="659.0" prefWidth="231.0" spacing="10.0" style="-fx-background-color: #f0f0f0;">
+            <children>
+                <Label fx:id="lbIdPrestamo" alignment="BOTTOM_LEFT" contentDisplay="CENTER" style="-fx-text-fill: #333333;" text="idPrestamo" />
+                <TextField fx:id="tfIdPrestamo" prefHeight="25.0" prefWidth="95.0" promptText="idPrestamo" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbIdEjemplar" style="-fx-text-fill: #333333;" text="IdEjemplar" />
+                <TextField fx:id="tfIdEjemplar" promptText="IdEjemplar" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbLibroISBN" style="-fx-text-fill: #333333;" text="Libro ISBN" />
+                <TextField fx:id="tfLibroISBN" promptText="Libro ISBN" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbIdSocio" style="-fx-text-fill: #333333;" text="IdSocio" />
+                <TextField fx:id="tfIdSocio" promptText="IdSocio" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbFechaInicio" style="-fx-text-fill: #333333;" text="Fecha Inicio" />
+                <TextField fx:id="tfFechaInicio" promptText="Fecha Inicio" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <Label fx:id="lbFechaFin" text="Fecha Fin" />
+            <TextField fx:id="tfFechaFin" layoutX="43.0" layoutY="416.0" promptText="Fecha Fin" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <Label fx:id="lbEstado" text="Estado" />
+            <TextField fx:id="tfEstado" layoutX="43.0" layoutY="480.0" promptText="Estado" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0" spacing="5.0">
+                    <children>
+                        <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: #4CAF50; -fx-text-fill: #ffffff;" text="Guardar" />
+                        <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #f44336; -fx-text-fill: #ffffff;" text="Borrar" />
+                        <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" style="-fx-background-color: #ff9800; -fx-text-fill: #ffffff;" text="Modificar" />
+                    </children>
+                </HBox>
+            <Button fx:id="btMorosos" alignment="CENTER" mnemonicParsing="false" onAction="#onClickMorosos" prefHeight="25.0" prefWidth="101.0" style="-fx-background-color: #f44336; -fx-text-fill: #ffffff;" text="Morosos" />
+            <TextField fx:id="tfFechaInicioBuscar" layoutX="44.0" layoutY="528.0" promptText="Fecha Inicio a buscar">
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="tfFechaFinBuscar" layoutX="44.0" layoutY="613.0" promptText="Fecha Fin a buscar" />
+            <Button fx:id="btBuscarFecha" layoutX="93.0" layoutY="685.0" mnemonicParsing="false" onAction="#onClickBuscarFecha" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="Buscar" />
+                <TextField fx:id="tfEjemplarBuscar" promptText="idEjemplar a buscar">
+                    <VBox.margin>
+                        <Insets top="30.0" />
+                    </VBox.margin>
+                </TextField>
+                <TextField fx:id="tfPrestamoBuscar" promptText="idPrestamo a buscar" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </TextField>
+            <TextField fx:id="tfSocioBuscar" layoutX="44.0" layoutY="701.0" promptText="idSocio a buscar" />
+                <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onClickBuscar" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="Buscar" />
+                <Button fx:id="btMostrarTodos" mnemonicParsing="false" onAction="#onClickMostrarTodos" style="-fx-background-color: #009688; -fx-text-fill: #ffffff;" text="Mostrar Todos" />
+            </children>
+        </VBox>
+        <TableView fx:id="tvPrestamos" onMouseClicked="#onClickTvPrestamos" prefHeight="751.0" prefWidth="803.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
+            <columns>
+                <TableColumn fx:id="tcIdPrestamo" prefWidth="77.0" style="-fx-text-fill: #333333;" text="idPrestamo" />
+                <TableColumn fx:id="tcIdEjemplar" prefWidth="83.0" style="-fx-text-fill: #333333;" text="idEjemplar" />
+                <TableColumn fx:id="tcLibroISBN" minWidth="0.0" prefWidth="208.0" style="-fx-text-fill: #333333;" text="Libro ISBN" />
+                <TableColumn fx:id="tcIdSocio" prefWidth="66.0" style="-fx-text-fill: #333333;" text="idSocio" />
+                <TableColumn fx:id="tcFechaInicio" prefWidth="137.0" style="-fx-text-fill: #333333;" text="Fecha Inicio" />
+            <TableColumn fx:id="tcFechaFin" prefWidth="129.0" text="Fecha Fin" />
+            <TableColumn fx:id="tcEstado" prefWidth="92.0" text="Estado" />
+            </columns>
+        </TableView>
+    </children>
+</HBox>
