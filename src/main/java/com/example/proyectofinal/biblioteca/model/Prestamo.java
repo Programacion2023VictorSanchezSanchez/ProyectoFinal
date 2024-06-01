@@ -6,7 +6,6 @@ public class Prestamo {
     // Atributos
     private int idPrestamo;
     private int disponibles;
-    private String ISBN;
     private int idSocio;
     private Date fechaInicio;
     private Date fechaFin;
@@ -16,10 +15,9 @@ public class Prestamo {
     public Prestamo() {
     }
 
-    public Prestamo(int idPrestamo, int disponibles, String ISBN, int idSocio, Date fechaInicio, Date fechaFin, boolean isDevuelto) {
+    public Prestamo(int idPrestamo, int disponibles, int idSocio, Date fechaInicio, Date fechaFin, boolean isDevuelto) {
         setIdPrestamo(idPrestamo);
         setDisponibles(disponibles);
-        setISBN(ISBN);
         setIdSocio(idSocio);
         setFechaInicio(fechaInicio);
         setFechaFin(fechaFin);
@@ -32,9 +30,6 @@ public class Prestamo {
     }
     public int getDisponibles() {
         return this.disponibles;
-    }
-    public String getISBN() {
-        return this.ISBN;
     }
     public int getIdSocio() {
         return this.idSocio;
@@ -64,12 +59,6 @@ public class Prestamo {
         }
         this.disponibles = disponibles;
     }
-    public void setISBN(String ISBN) throws IllegalArgumentException {
-        if (ISBN == null || ISBN.isEmpty()) {
-            throw new IllegalArgumentException("El ISBN no puede estar vacío");
-        }
-        this.ISBN = ISBN;
-    }
     public void setIdSocio(int idSocio) throws IllegalArgumentException {
         if (idSocio <= 0) {
             throw new IllegalArgumentException("El ID del socio debe ser un número positivo");
@@ -97,7 +86,6 @@ public class Prestamo {
         return "Prestamo{" +
                 "idPrestamo=" + idPrestamo +
                 ", disponibles=" + disponibles +
-                ", ISBN='" + ISBN + '\'' +
                 ", idSocio=" + idSocio +
                 ", fechaInicio=" + fechaInicio +
                 ", fechaFin=" + fechaFin +

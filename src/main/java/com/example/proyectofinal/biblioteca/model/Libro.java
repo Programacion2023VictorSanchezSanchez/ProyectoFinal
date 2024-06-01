@@ -48,14 +48,12 @@ public class Libro {
         }
 
     }
-    public void setIdAutor(int idAutor) throws IllegalArgumentException{
-        if(idAutor <= 0){
-            throw new IllegalArgumentException("El id del Autor no puede ser menor o igual a 0");
-        }else{
+    public void setIdAutor(int idAutor) {
+
             this.idAutor = idAutor;
         }
 
-    }
+
     public void setAnyo(int anyo) {
         this.anyo = anyo;
     }

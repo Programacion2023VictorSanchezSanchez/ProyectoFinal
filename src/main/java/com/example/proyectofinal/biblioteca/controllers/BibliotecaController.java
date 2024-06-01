@@ -39,7 +39,7 @@ public class BibliotecaController {
 
     @FXML
     void onClickAutores(ActionEvent event) {
-
+        abrirAutores();
     }
 
     @FXML
@@ -49,12 +49,12 @@ public class BibliotecaController {
 
     @FXML
     void onClickGeneros(ActionEvent event) {
-
+        abrirGeneros();
     }
 
     @FXML
     void onClickLibros(ActionEvent event) {
-
+        abrirLibros();
     }
 
     @FXML
@@ -83,6 +83,63 @@ public class BibliotecaController {
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Socios");
+            stage.setScene(scene);
+            stage.showAndWait();
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void abrirAutores(){
+        try{
+            FXMLLoader loader = new FXMLLoader(BibliotecaAPP.class.getResource("views/autor-view.fxml"));
+            Parent root = loader.load();
+
+            AutorController autorController=loader.getController();
+            autorController.initialize();
+            Scene scene= new Scene(root);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Autores");
+            stage.setScene(scene);
+            stage.showAndWait();
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void abrirLibros(){
+        try{
+            FXMLLoader loader = new FXMLLoader(BibliotecaAPP.class.getResource("views/libro-view.fxml"));
+            Parent root = loader.load();
+
+            LibroController LibroController=loader.getController();
+            LibroController.initialize();
+            Scene scene= new Scene(root);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Libros");
+            stage.setScene(scene);
+            stage.showAndWait();
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void abrirGeneros(){
+        try{
+            FXMLLoader loader = new FXMLLoader(BibliotecaAPP.class.getResource("views/genero-view.fxml"));
+            Parent root = loader.load();
+
+            GeneroController generoController=loader.getController();
+            generoController.initialize();
+            Scene scene= new Scene(root);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Generos");
             stage.setScene(scene);
             stage.showAndWait();
         }catch (IOException e){

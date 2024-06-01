@@ -43,17 +43,12 @@ public class Ejemplar {
         this.idEjemplar = idEjemplar;
     }
 
-    public void setLibroISBN(String libroISBN) throws IllegalArgumentException {
-        if (libroISBN == null || libroISBN.isEmpty()) {
-            throw new IllegalArgumentException("El ISBN del libro no puede estar vacío");
-        }
+    public void setLibroISBN(String libroISBN) {
         this.libroISBN = libroISBN;
     }
 
-    public void setEstado(String estado) throws IllegalArgumentException {
-        if (estado == null || estado.isEmpty()) {
-            throw new IllegalArgumentException("El ISBN del libro no puede estar vacío");
-        }
+    public void setEstado(String estado)  {
+
         this.estado = estado;
     }
 

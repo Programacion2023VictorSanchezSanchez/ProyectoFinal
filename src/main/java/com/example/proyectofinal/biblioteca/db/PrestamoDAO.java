@@ -15,21 +15,20 @@ public class PrestamoDAO {
     private final Connection connection = DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Prestamo
-    private static final String INSERT_QUERY = "INSERT INTO Prestamos (disponibles, ISBN, idSocio, fecha_inicio, fecha_fin, isDevuelto) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String INSERT_QUERY = "INSERT INTO Prestamos (disponibles, idSocio, fecha_inicio, fecha_fin, isDevuelto) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Prestamos";
     private static final String SELECT_BY_ID_QUERY = "SELECT * FROM Prestamos WHERE idPrestamo = ?";
-    private static final String UPDATE_QUERY = "UPDATE Prestamos SET disponibles = ?, ISBN = ?, idSocio = ?, fecha_inicio = ?, fecha_fin = ?, isDevuelto = ? WHERE idPrestamo = ?";
+    private static final String UPDATE_QUERY = "UPDATE Prestamos SET disponibles = ?, idSocio = ?, fecha_inicio = ?, fecha_fin = ?, isDevuelto = ? WHERE idPrestamo = ?";
     private static final String DELETE_QUERY = "DELETE FROM Prestamos WHERE idPrestamo = ?";
 
     // Método para insertar un nuevo prestamo en la base de datos
     public void insertPrestamo(Prestamo prestamo) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(INSERT_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
             statement.setInt(1, prestamo.getDisponibles());
-            statement.setString(2, prestamo.getISBN());
-            statement.setInt(3, prestamo.getIdSocio());
-            statement.setDate(4, prestamo.getFechaInicio());
-            statement.setDate(5, prestamo.getFechaFin());
-            statement.setBoolean(6, prestamo.isDevuelto());
+            statement.setInt(2, prestamo.getIdSocio());
+            statement.setDate(3, prestamo.getFechaInicio());
+            statement.setDate(4, prestamo.getFechaFin());
+            statement.setBoolean(5, prestamo.isDevuelto());
             statement.executeUpdate();
 
         }
@@ -65,12 +64,11 @@ public class PrestamoDAO {
     public void updatePrestamo(Prestamo prestamo) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY)) {
             statement.setInt(1, prestamo.getDisponibles());
-            statement.setString(2, prestamo.getISBN());
-            statement.setInt(3, prestamo.getIdSocio());
-            statement.setDate(4, prestamo.getFechaInicio());
-            statement.setDate(5, prestamo.getFechaFin());
-            statement.setBoolean(6, prestamo.isDevuelto());
-            statement.setInt(7, prestamo.getIdPrestamo());
+            statement.setInt(2, prestamo.getIdSocio());
+            statement.setDate(3, prestamo.getFechaInicio());
+            statement.setDate(4, prestamo.getFechaFin());
+            statement.setBoolean(5, prestamo.isDevuelto());
+            statement.setInt(6, prestamo.getIdPrestamo());
             statement.executeUpdate();
         }
     }
@@ -88,7 +86,6 @@ public class PrestamoDAO {
         return new Prestamo(
                 resultSet.getInt("idPrestamo"),
                 resultSet.getInt("idEjemplar"),
-                resultSet.getString("ISBN"),
                 resultSet.getInt("idSocio"),
                 resultSet.getDate("fecha_inicio"),
                 resultSet.getDate("fecha_fin"),

@@ -103,6 +103,7 @@ public class SocioController implements Initializable {
             socioDAO.insertSocio(socio);
             cargarTodosLosSocios(); // Recargar la tabla después de la inserción
             limpiarFormulario();
+            mostrarMensaje("Éxito", "Socio guardado exitosamente", Alert.AlertType.INFORMATION);
         } catch (SQLException e) {
             mostrarError("Error al guardar el socio: " + e.getMessage());
         }
@@ -116,6 +117,7 @@ public class SocioController implements Initializable {
                 socioDAO.deleteSocioByid(socio.getIdSocio());
                 cargarTodosLosSocios(); // Recargar la tabla después de la eliminación
                 limpiarFormulario();
+                mostrarMensaje("Éxito", "Socio borrado exitosamente", Alert.AlertType.INFORMATION);
             } catch (SQLException e) {
                 mostrarError("Error al borrar el socio: " + e.getMessage());
             }
@@ -131,6 +133,7 @@ public class SocioController implements Initializable {
             socioDAO.updateSocio(socio);
             cargarTodosLosSocios(); // Recargar la tabla después de la modificación
             limpiarFormulario();
+            mostrarMensaje("Éxito", "Socio modificado exitosamente", Alert.AlertType.INFORMATION);
         } catch (SQLException e) {
             mostrarError("Error al modificar el socio: " + e.getMessage());
         }
@@ -237,6 +240,14 @@ public class SocioController implements Initializable {
         alert.setTitle("Advertencia");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(contenido);
         alert.showAndWait();
     }
 

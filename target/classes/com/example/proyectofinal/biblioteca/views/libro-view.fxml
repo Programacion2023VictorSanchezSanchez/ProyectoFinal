@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="657.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectofinal.biblioteca.controllers.LibroController">
+    <children>
+        <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="659.0" prefWidth="231.0" spacing="10.0" style="-fx-background-color: #f0f0f0;">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Libro.jpg" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lbISBN" alignment="BOTTOM_LEFT" contentDisplay="CENTER" style="-fx-text-fill: #333333;" text="ISBN" />
+                <TextField fx:id="tfISBN" prefHeight="25.0" prefWidth="95.0" promptText="ISBN" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbNombre" style="-fx-text-fill: #333333;" text="Nombre" />
+                <TextField fx:id="tfNombre" promptText="nombre" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbIdAutor" style="-fx-text-fill: #333333;" text="IdAutor" />
+                <TextField fx:id="tfIdAutor" promptText="IdAutor" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbAnyo" style="-fx-text-fill: #333333;" text="Año" />
+                <TextField fx:id="tfAnyo" promptText="Año" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0" spacing="5.0">
+                    <children>
+                        <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: #4CAF50; -fx-text-fill: #ffffff;" text="Guardar" />
+                        <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #f44336; -fx-text-fill: #ffffff;" text="Borrar" />
+                        <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" style="-fx-background-color: #ff9800; -fx-text-fill: #ffffff;" text="Modificar" />
+                    </children>
+                </HBox>
+                <TextField fx:id="tfISBNBuscar" promptText="ISBN a buscar" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
+                    <VBox.margin>
+                        <Insets top="50.0" />
+                    </VBox.margin>
+                </TextField>
+                <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onClickBuscar" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="Buscar" />
+                <Button fx:id="btMostrarTodos" mnemonicParsing="false" onAction="#onClickMostrarTodos" style="-fx-background-color: #009688; -fx-text-fill: #ffffff;" text="Mostrar Todos" />
+            </children>
+        </VBox>
+        <TableView fx:id="tvLibros" onMouseClicked="#onClickTvLibros" prefHeight="632.0" prefWidth="562.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
+            <columns>
+                <TableColumn fx:id="tcISBN" prefWidth="146.0" style="-fx-text-fill: #333333;" text="ISBN" />
+                <TableColumn fx:id="tcNombre" prefWidth="158.0" style="-fx-text-fill: #333333;" text="Nombre" />
+                <TableColumn fx:id="tcIdAutor" minWidth="0.0" prefWidth="113.0" style="-fx-text-fill: #333333;" text="IdAutor" />
+                <TableColumn fx:id="tcAnyo" prefWidth="142.0" style="-fx-text-fill: #333333;" text="Año" />
+            </columns>
+        </TableView>
+    </children>
+</HBox>
