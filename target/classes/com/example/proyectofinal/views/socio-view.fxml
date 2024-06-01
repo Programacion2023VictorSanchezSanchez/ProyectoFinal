@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="657.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectofinal.biblioteca.controllers.SocioController">
+    <children>
+        <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="659.0" prefWidth="231.0" spacing="10.0">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/socio.jpg" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lbIdSocio" alignment="BOTTOM_LEFT" contentDisplay="CENTER" text="idSocio" />
+                <TextField fx:id="tfIdSocio" prefHeight="25.0" prefWidth="95.0" promptText="idSocio" />
+                <Label fx:id="lbNombre" text="Nombre" />
+                <TextField fx:id="tfNombre" promptText="nombre" />
+                <Label fx:id="lbApellidos" text="Apellidos" />
+                <TextField fx:id="tfApellidos" promptText="Apellidos" />
+            <Label fx:id="lbTelefono" text="Telefono" />
+            <TextField fx:id="tfTelefono" promptText="Telefono" />
+                <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" text="Guardar" />
+                <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" text="Borrar" />
+            <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" text="Modificar" />
+            <TextField fx:id="tfIdBuscar" promptText="idSocio a buscar" />
+            <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onClickBuscar" text="Buscar" />
+            <Button fx:id="btMostrarTodos" mnemonicParsing="false" onAction="#onClickMostrarTodos" text="Mostrar Todos" />
+            </children>
+        </VBox>
+        <TableView fx:id="tvAlumnos" onMouseClicked="#onClickTvAlumnos" prefHeight="632.0" prefWidth="562.0">
+            <columns>
+                <TableColumn fx:id="tcIdSocio" prefWidth="76.0" text="idSocio" />
+                <TableColumn fx:id="tcNombre" prefWidth="134.0" text="Nombre" />
+                <TableColumn fx:id="tcApellidos" minWidth="0.0" prefWidth="127.0" text="Apellidos" />
+                <TableColumn fx:id="tcTelefono" prefWidth="110.0" text="Telefono" />
+            <TableColumn fx:id="tcEmail" prefWidth="120.0" text="Email" />
+            </columns>
+        </TableView>
+    </children>
+</HBox>

@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Libro` (
   `idAutor` INT NOT NULL,
   `anyo` INT NOT NULL,
   PRIMARY KEY (`ISBN`),
-  INDEX `fk_Libro_Autor_idx` (`idAutor` ASC) VISIBLE,
+  INDEX `fk_Libro_Autor_idx` (`idAutor` ASC),
   CONSTRAINT `fk_Libro_Autor`
     FOREIGN KEY (`idAutor`)
     REFERENCES `mydb`.`Autor` (`idAutor`)
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`EjemplaresDisponibles` (
   `Libro_ISBN` VARCHAR(13) NOT NULL,
   `estado` VARCHAR(45) NULL,
   PRIMARY KEY (`idEjemplar`, `Libro_ISBN`),
-  INDEX `fk_EjemplaresDisponibles_Libro1_idx` (`Libro_ISBN` ASC) VISIBLE,
+  INDEX `fk_EjemplaresDisponibles_Libro1_idx` (`Libro_ISBN` ASC),
   CONSTRAINT `fk_EjemplaresDisponibles_Libro1`
     FOREIGN KEY (`Libro_ISBN`)
     REFERENCES `mydb`.`Libro` (`ISBN`)
@@ -97,8 +97,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Prestamo` (
   `fecha_fin` DATE NOT NULL,
   `isDevuelto` TINYINT NULL,
   PRIMARY KEY (`idPrestamo`, `idEjemplar`, `ISBN`, `idSocio`, `fecha_inicio`),
-  INDEX `fk_EjemplaresDisponibles_has_Socio_Socio1_idx` (`idSocio` ASC) VISIBLE,
-  INDEX `fk_EjemplaresDisponibles_has_Socio_EjemplaresDisponibles1_idx` (`idEjemplar` ASC, `ISBN` ASC) VISIBLE,
+  INDEX `fk_EjemplaresDisponibles_has_Socio_Socio1_idx` (`idSocio` ASC),
+  INDEX `fk_EjemplaresDisponibles_has_Socio_EjemplaresDisponibles1_idx` (`idEjemplar` ASC, `ISBN` ASC),
   CONSTRAINT `fk_EjemplaresDisponibles_has_Socio_EjemplaresDisponibles1`
     FOREIGN KEY (`idEjemplar` , `ISBN`)
     REFERENCES `mydb`.`EjemplaresDisponibles` (`idEjemplar` , `Libro_ISBN`)
@@ -119,8 +119,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Libro_has_Genero` (
   `Libro_ISBN` VARCHAR(13) NOT NULL,
   `Genero_nombre` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`Libro_ISBN`, `Genero_nombre`),
-  INDEX `fk_Libro_has_Genero_Genero1_idx` (`Genero_nombre` ASC) VISIBLE,
-  INDEX `fk_Libro_has_Genero_Libro1_idx` (`Libro_ISBN` ASC) VISIBLE,
+  INDEX `fk_Libro_has_Genero_Genero1_idx` (`Genero_nombre` ASC),
+  INDEX `fk_Libro_has_Genero_Libro1_idx` (`Libro_ISBN` ASC),
   CONSTRAINT `fk_Libro_has_Genero_Libro1`
     FOREIGN KEY (`Libro_ISBN`)
     REFERENCES `mydb`.`Libro` (`ISBN`)
