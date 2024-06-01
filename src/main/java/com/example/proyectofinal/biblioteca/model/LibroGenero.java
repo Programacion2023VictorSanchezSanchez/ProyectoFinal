@@ -1,5 +1,8 @@
 package com.example.proyectofinal.biblioteca.model;
 
+/**
+ * Clase que representa la relación entre un libro y su género.
+ */
 public class LibroGenero {
     // Atributos
     private String libroISBN;

@@ -1,5 +1,8 @@
 package com.example.proyectofinal.biblioteca.model;
 
+/**
+ * Clase que representa un libro en la biblioteca.
+ */
 public class Libro {
     // Atributos
     private String ISBN;
@@ -8,9 +11,22 @@ public class Libro {
     private int anyo;
 
     // Constructores
+
+    /**
+     * Constructor por defecto que inicializa un libro con valores predeterminados.
+     */
     public Libro() {
         this("1112223334445", "Ejemplo", 10, 1950);
     }
+
+    /**
+     * Constructor que inicializa un libro con los valores especificados.
+     *
+     * @param ISBN    El ISBN del libro.
+     * @param titulo  El título del libro.
+     * @param idAutor El ID del autor del libro.
+     * @param anyo    El año de publicación del libro.
+     */
     public Libro(String ISBN, String titulo, int idAutor, int anyo) {
         setISBN(ISBN);
         setTitulo(titulo);
@@ -52,8 +68,6 @@ public class Libro {
 
             this.idAutor = idAutor;
         }
-
-
     public void setAnyo(int anyo) {
         this.anyo = anyo;
     }

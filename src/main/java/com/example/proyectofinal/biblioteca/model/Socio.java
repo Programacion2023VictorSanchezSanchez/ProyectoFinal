@@ -1,5 +1,8 @@
 package com.example.proyectofinal.biblioteca.model;
 
+/**
+ * Clase que representa un socio de la biblioteca.
+ */
 public class Socio {
     // Atributos
     private int idSocio;
@@ -10,14 +13,35 @@ public class Socio {
 
     // Constructores
 
+    /**
+     * Constructor por defecto que inicializa un socio con valores predeterminados.
+     */
     public Socio() {
-        this(999,"Mariano", "Rajoy", "987654321", "ejemplo@gmail.com");
+        this(999, "Mariano", "Rajoy", "987654321", "ejemplo@gmail.com");
     }
+
+    /**
+     * Constructor que inicializa un socio con los valores especificados.
+     *
+     * @param nombre    El nombre del socio.
+     * @param apellidos Los apellidos del socio.
+     * @param telefono  El número de teléfono del socio.
+     * @param email     El correo electrónico del socio.
+     */
     public Socio(String nombre, String apellidos, String telefono, String email) {
         this(999, nombre, apellidos, telefono, email);
-
     }
-    public Socio(int idSocio, String nombre, String apellidos, String telefono, String email){
+
+    /**
+     * Constructor que inicializa un socio con todos los atributos especificados.
+     *
+     * @param idSocio   El ID del socio.
+     * @param nombre    El nombre del socio.
+     * @param apellidos Los apellidos del socio.
+     * @param telefono  El número de teléfono del socio.
+     * @param email     El correo electrónico del socio.
+     */
+    public Socio(int idSocio, String nombre, String apellidos, String telefono, String email) {
         setIdSocio(idSocio);
         setNombre(nombre);
         setApellidos(apellidos);
@@ -83,3 +107,4 @@ public class Socio {
                 '}';
     }
 }
+

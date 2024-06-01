@@ -1,17 +1,37 @@
 package com.example.proyectofinal.biblioteca.model;
 
+/**
+ * Clase que representa un autor en la biblioteca.
+ */
 public class Autor {
     // Atributos
     private int idAutor; // Autoincremental
     private String nombre;
 
     // Constructores
+
+    /**
+     * Constructor por defecto que inicializa un autor con valores predeterminados.
+     */
     public Autor() {
         this(999,"Ejemplo");
     }
+
+    /**
+     * Constructor que inicializa un autor con su nombre.
+     *
+     * @param nombre El nombre del autor.
+     */
     public Autor(String nombre) {
         this(999, nombre);
     }
+
+    /**
+     * Constructor que inicializa un autor con todos sus atributos.
+     *
+     * @param idAutor El ID del autor.
+     * @param nombre  El nombre del autor.
+     */
     public Autor(int idAutor, String nombre) {
         setIdAutor(idAutor);
         setNombre(nombre);
