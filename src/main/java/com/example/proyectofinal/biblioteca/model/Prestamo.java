@@ -5,91 +5,122 @@ import java.sql.Date;
 public class Prestamo {
     // Atributos
     private int idPrestamo;
-    private int disponibles;
+    private int idEjemplar;
+
+    private String libroISBN;
     private int idSocio;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private boolean isDevuelto;
+    private String fechaInicio;
+    private String fechaFin;
+    private String estado;
 
     // Constructores
     public Prestamo() {
     }
 
-    public Prestamo(int idPrestamo, int disponibles, int idSocio, Date fechaInicio, Date fechaFin, boolean isDevuelto) {
+    public Prestamo(int idPrestamo, int idEjemplar, int idSocio, String fechaInicio, String fechaFin, String libroISBN, String estado) {
         setIdPrestamo(idPrestamo);
-        setDisponibles(disponibles);
+        setIdEjemplar(idEjemplar);
         setIdSocio(idSocio);
         setFechaInicio(fechaInicio);
         setFechaFin(fechaFin);
-        setDevuelto(isDevuelto);
+        setLibroISBN(libroISBN);
+        setEstado(estado);
     }
 
     // Getters
     public int getIdPrestamo() {
         return this.idPrestamo;
     }
-    public int getDisponibles() {
-        return this.disponibles;
+
+    public int getIdEjemplar() {
+        return this.idEjemplar;
     }
+
+    public String getLibroISBN() {
+        return this.libroISBN;
+    }
+
     public int getIdSocio() {
         return this.idSocio;
     }
-    public Date getFechaInicio() {
+
+    public String getFechaInicio() {
         return this.fechaInicio;
     }
-    public Date getFechaFin() {
+
+    public String getFechaFin() {
         return this.fechaFin;
     }
-    public boolean isDevuelto() {
-        return this.isDevuelto;
+
+    public String getEstado() {
+        return this.estado;
     }
 
     // Setters
     public void setIdPrestamo(int idPrestamo) throws IllegalArgumentException {
         if (idPrestamo <= 0) {
             throw new IllegalArgumentException("El ID del prestamo debe ser un número positivo");
-        }else{
+        } else {
             this.idPrestamo = idPrestamo;
         }
 
     }
-    public void setDisponibles(int disponibles) throws IllegalArgumentException {
-        if (disponibles < 0) {
-            throw new IllegalArgumentException("La cantidad de disponibles no puede ser negativa");
+
+    public void setIdEjemplar(int idEjemplar) throws IllegalArgumentException {
+        if (idEjemplar <= 0) {
+            throw new IllegalArgumentException("El ID del ejemplar no puede ser negativo");
         }
-        this.disponibles = disponibles;
+        this.idEjemplar = idEjemplar;
     }
+
+    public void setLibroISBN(String libroISBN) throws IllegalArgumentException {
+        if (!libroISBN.matches("\\d{13}")) {
+            throw new IllegalArgumentException("El ISBN debe contener exactamente 13 dígitos");
+        } else {
+            this.libroISBN = libroISBN;
+        }
+    }
+
     public void setIdSocio(int idSocio) throws IllegalArgumentException {
         if (idSocio <= 0) {
             throw new IllegalArgumentException("El ID del socio debe ser un número positivo");
         }
         this.idSocio = idSocio;
     }
-    public void setFechaInicio(Date fechaInicio) throws IllegalArgumentException {
-        if (fechaInicio == null) {
-            throw new IllegalArgumentException("La fecha de inicio no puede ser nula");
+
+    public void setFechaInicio(String fechaInicio) throws IllegalArgumentException {
+        if (!fechaInicio.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("La fecha debe de tener formato YYYY-MM-DD");
         }
         this.fechaInicio = fechaInicio;
     }
-    public void setFechaFin(Date fechaFin) throws IllegalArgumentException {
-        if (fechaFin == null) {
-            throw new IllegalArgumentException("La fecha de fin no puede ser nula");
+
+    public void setFechaFin(String fechaFin) throws IllegalArgumentException {
+        if (!fechaFin.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new IllegalArgumentException("La fecha debe de tener formato YYYY-MM-DD");
         }
         this.fechaFin = fechaFin;
     }
-    public void setDevuelto(boolean devuelto) {
-        isDevuelto = devuelto;
-    }
 
+    public void setEstado(String estado) throws IllegalArgumentException {
+        String estadoLowerCase = estado.toLowerCase();
+        if (estadoLowerCase.equals("devuelto") || estadoLowerCase.equals("no devuelto")) {
+            this.estado = estadoLowerCase;
+        } else {
+            throw new IllegalArgumentException("El estado debe ser 'Devuelto' o 'No devuelto'.");
+        }
+
+    }
     @Override
-    public String toString() {
+    public String toString () {
         return "Prestamo{" +
                 "idPrestamo=" + idPrestamo +
-                ", disponibles=" + disponibles +
+                ", idEjemplar=" + idEjemplar +
+                ", libroISBN='" + libroISBN + '\'' +
                 ", idSocio=" + idSocio +
                 ", fechaInicio=" + fechaInicio +
                 ", fechaFin=" + fechaFin +
-                ", isDevuelto=" + isDevuelto +
+                ", estado='" + estado + '\'' +
                 '}';
     }
 }

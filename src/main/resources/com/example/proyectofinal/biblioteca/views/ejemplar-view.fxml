@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox prefHeight="657.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectofinal.biblioteca.controllers.EjemplarController">
+    <children>
+        <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="659.0" prefWidth="231.0" spacing="10.0" style="-fx-background-color: #f0f0f0;">
+            <children>
+                <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../images/Ejemplar.jpg" />
+                    </image>
+                </ImageView>
+                <Label fx:id="lbIdEjemplar" alignment="BOTTOM_LEFT" contentDisplay="CENTER" style="-fx-text-fill: #333333;" text="idEjemplar" />
+                <TextField fx:id="tfIdEjemplar" prefHeight="25.0" prefWidth="95.0" promptText="idEjemplar" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Label fx:id="lbLibroISBN" style="-fx-text-fill: #333333;" text="Libro ISBN" />
+                <TextField fx:id="tfLibroISBN" promptText="Libro ISBN" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+            <Label fx:id="lbEstado" text="Estado" />
+            <TextField fx:id="tfEstado" layoutX="49.0" layoutY="245.0" promptText="Estado" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0" spacing="5.0">
+                    <children>
+                        <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: #4CAF50; -fx-text-fill: #ffffff;" text="Guardar" />
+                        <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #f44336; -fx-text-fill: #ffffff;" text="Borrar" />
+                        <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" style="-fx-background-color: #ff9800; -fx-text-fill: #ffffff;" text="Modificar" />
+                    </children>
+                </HBox>
+                <TextField fx:id="tfIdBuscar" alignment="TOP_LEFT" promptText="IdEjemplar a buscar" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
+                    <VBox.margin>
+                        <Insets top="200.0" />
+                    </VBox.margin>
+                </TextField>
+            <TextField fx:id="tfISBNBuscar" alignment="TOP_LEFT" layoutX="49.0" layoutY="581.0" promptText="ISBN a buscar" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
+                <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onClickBuscar" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="Buscar" />
+                <Button fx:id="btMostrarTodos" mnemonicParsing="false" onAction="#onClickMostrarTodos" style="-fx-background-color: #009688; -fx-text-fill: #ffffff;" text="Mostrar Todos" />
+            </children>
+        </VBox>
+        <TableView fx:id="tvEjemplares" onMouseClicked="#onClickTvEjemplares" prefHeight="632.0" prefWidth="562.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
+            <columns>
+                <TableColumn fx:id="tcIdEjemplar" prefWidth="120.0" style="-fx-text-fill: #333333;" text="idEjemplar" />
+                <TableColumn fx:id="tcLibroISBN" prefWidth="240.0" style="-fx-text-fill: #333333;" text="Libro ISBN" />
+            <TableColumn fx:id="tcEstado" prefWidth="198.0" text="Estado" />
+            </columns>
+        </TableView>
+    </children>
+</HBox>

@@ -38,13 +38,17 @@ public class Ejemplar {
     // Setters
     public void setIdEjemplar(int idEjemplar) throws IllegalArgumentException {
         if (idEjemplar <= 0) {
-            throw new IllegalArgumentException("La cantidad de disponibles no puede ser negativa");
+            throw new IllegalArgumentException("El id de Ejemplar no puede ser negativo");
         }
         this.idEjemplar = idEjemplar;
     }
 
-    public void setLibroISBN(String libroISBN) {
-        this.libroISBN = libroISBN;
+    public void setLibroISBN(String libroISBN) throws IllegalArgumentException{
+        if(!libroISBN.matches("\\d{13}")){
+            throw new IllegalArgumentException("El ISBN debe contener exactamente 13 dígitos");
+        } else{
+            this.libroISBN = libroISBN;
+        }
     }
 
     public void setEstado(String estado)  {

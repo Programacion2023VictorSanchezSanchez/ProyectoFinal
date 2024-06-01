@@ -15,11 +15,15 @@ public class EjemplarDAO {
     private final Connection connection = DBConnection.getConnection();
 
     // Consultas SQL para manipular la tabla Ejemplares
-    private static final String INSERT_QUERY = "INSERT INTO Ejemplares (Libro_ISBN, estado) VALUES (?, ?)";
-    private static final String SELECT_ALL_QUERY = "SELECT * FROM Ejemplares";
-    private static final String SELECT_BY_ID_QUERY = "SELECT * FROM Ejemplares WHERE id_ejemplar = ?";
-    private static final String UPDATE_QUERY = "UPDATE Ejemplares SET Libro_ISBN = ?, estado = ? WHERE id_ejemplar = ?";
-    private static final String DELETE_QUERY = "DELETE FROM Ejemplares WHERE id_ejemplar = ?";
+    private static final String INSERT_QUERY = "INSERT INTO EjemplaresDisponibles (Libro_ISBN, estado) VALUES (?, ?)";
+    private static final String SELECT_ALL_QUERY = "SELECT * FROM EjemplaresDisponibles";
+    private static final String SELECT_BY_ID_QUERY = "SELECT * FROM EjemplaresDisponibles WHERE idEjemplar = ?";
+
+    private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM EjemplaresDisponibles WHERE Libro_ISBN = ?";
+
+    private static final String SELECT_BY_ISBN_ID_QUERY = "SELECT * FROM EjemplaresDisponibles WHERE idEjemplar = ? AND Libro_ISBN = ?";
+    private static final String UPDATE_QUERY = "UPDATE EjemplaresDisponibles SET Libro_ISBN = ?, estado = ? WHERE idEjemplar = ?";
+    private static final String DELETE_QUERY = "DELETE FROM EjemplaresDisponibles WHERE idEjemplar = ?";
 
     // Método para insertar un nuevo ejemplar en la base de datos
     public void insertEjemplar(Ejemplar ejemplar) throws SQLException {
@@ -55,6 +59,35 @@ public class EjemplarDAO {
         }
         return ejemplar;
     }
+
+    // Método para obtener un ejemplar por su ISBN
+    public List<Ejemplar> getEjemplarByISBN(String ISBN) throws SQLException {
+        List<Ejemplar> listaEjemplares = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
+            statement.setString(1, ISBN);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Ejemplar ejemplar = resultSetToEjemplar(resultSet);
+                listaEjemplares.add(ejemplar);
+            }
+        }
+        return listaEjemplares;
+    }
+
+    // Método para obtener un ejemplar por su ID
+    public Ejemplar getEjemplarByIdISBN(int idEjemplar, String ISBN) throws SQLException {
+        Ejemplar ejemplar = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_ID_QUERY)) {
+            statement.setInt(1, idEjemplar);
+            statement.setString(2, ISBN);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                ejemplar = resultSetToEjemplar(resultSet);
+            }
+        }
+        return ejemplar;
+    }
+
 
     // Método para actualizar los datos de un ejemplar en la base de datos
     public void updateEjemplar(Ejemplar ejemplar) throws SQLException {

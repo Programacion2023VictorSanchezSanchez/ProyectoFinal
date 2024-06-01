@@ -239,6 +239,7 @@ public class SocioController implements Initializable {
         tfEmail.setText(socio.getEmail());
     }
 
+
     private void limpiarFormulario() {
         tfIdSocio.clear();
         tfNombre.clear();

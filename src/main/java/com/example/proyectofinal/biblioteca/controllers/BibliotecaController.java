@@ -1,8 +1,6 @@
 package com.example.proyectofinal.biblioteca.controllers;
 
 import com.example.proyectofinal.biblioteca.BibliotecaAPP;
-import com.example.proyectofinal.biblioteca.model.Socio;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +42,7 @@ public class BibliotecaController {
 
     @FXML
     void onClickEjemplaresDisponibles(ActionEvent event) {
-
+        abrirEjemplares();
     }
 
     @FXML
@@ -64,7 +62,7 @@ public class BibliotecaController {
 
     @FXML
     void onClickPrestamos(ActionEvent event) {
-
+        abrirPrestamos();
     }
 
     @FXML
@@ -158,7 +156,7 @@ public class BibliotecaController {
 
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Generos");
+            stage.setTitle("Libro por Genero");
             stage.setScene(scene);
             stage.showAndWait();
         }catch (IOException e){
@@ -166,5 +164,44 @@ public class BibliotecaController {
         }
     }
 
-}
+    private void abrirEjemplares(){
+        try{
+            FXMLLoader loader = new FXMLLoader(BibliotecaAPP.class.getResource("views/ejemplar-view.fxml"));
+            Parent root = loader.load();
+
+            EjemplarController ejemplarController=loader.getController();
+            ejemplarController.initialize();
+            Scene scene= new Scene(root);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Ejemplares");
+            stage.setScene(scene);
+            stage.showAndWait();
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void abrirPrestamos(){
+        try{
+            FXMLLoader loader = new FXMLLoader(BibliotecaAPP.class.getResource("views/prestamo-view.fxml"));
+            Parent root = loader.load();
+
+            PrestamoController prestamoController=loader.getController();
+            prestamoController.initialize();
+            Scene scene= new Scene(root);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Prestamos");
+            stage.setScene(scene);
+            stage.showAndWait();
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+    }
+
+
 
