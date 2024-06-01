@@ -2,7 +2,6 @@ package com.example.proyectofinal.biblioteca.controllers;
 
 import com.example.proyectofinal.biblioteca.db.PrestamoDAO;
 import com.example.proyectofinal.biblioteca.model.Prestamo;
-import com.example.proyectofinal.biblioteca.model.Socio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,10 +10,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para gestionar la vista de préstamos en la biblioteca.
+ */
 public class PrestamoController implements Initializable {
 
     @FXML
@@ -115,6 +116,9 @@ public class PrestamoController implements Initializable {
 
     private final PrestamoDAO prestamoDAO = new PrestamoDAO();
 
+    /**
+     * Inicializa el controlador y configura las columnas de la TableView.
+     */
     public void initialize() {
         // Configurar las columnas de la TableView
         tcIdPrestamo.setCellValueFactory(new PropertyValueFactory<>("idPrestamo"));
@@ -129,6 +133,11 @@ public class PrestamoController implements Initializable {
         cargarTodosLosPrestamos();
     }
 
+    /**
+     * Maneja el evento de guardar un nuevo préstamo.
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickGuardar(ActionEvent event) {
         Prestamo prestamo = obtenerDatosPrestamoDeFormulario();
@@ -142,6 +151,11 @@ public class PrestamoController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de borrar un préstamo seleccionado.
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickBorrar(ActionEvent event) {
         Prestamo prestamo = tvPrestamos.getSelectionModel().getSelectedItem();
@@ -159,6 +173,11 @@ public class PrestamoController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de modificar un préstamo existente.
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickModificar(ActionEvent event) {
         Prestamo prestamo = obtenerDatosPrestamoDeFormulario();
@@ -172,6 +191,11 @@ public class PrestamoController implements Initializable {
         }
     }
 
+    /**
+     * Maneja el evento de buscar préstamos por diferentes criterios.
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickBuscar(ActionEvent event) {
         String idPrestamoABuscar = tfPrestamoBuscar.getText().trim();
@@ -179,91 +203,104 @@ public class PrestamoController implements Initializable {
         String idEjemplarABuscar = tfEjemplarBuscar.getText().trim();
 
         try {
-            if(!idSocioABuscar.isEmpty() && !idPrestamoABuscar.isEmpty() && !idEjemplarABuscar.isEmpty() ){
+            if (!idSocioABuscar.isEmpty() && !idPrestamoABuscar.isEmpty() && !idEjemplarABuscar.isEmpty()) {
                 Prestamo prestamo = prestamoDAO.getPrestamoByIds(Integer.parseInt(idPrestamoABuscar), Integer.parseInt(idSocioABuscar), Integer.parseInt(idEjemplarABuscar));
-                if(prestamo != null){
+                if (prestamo != null) {
                     tvPrestamos.getItems().clear(); // Limpiar la tabla
-                    tvPrestamos.getItems().add(prestamo); // Agregar el prestamo encontrado a la tabla
-                } else{
-                    mostrarAdvertencia("No se encontró ningún prstamo con los IDs proporcionados");
+                    tvPrestamos.getItems().add(prestamo); // Agregar el préstamo encontrado a la tabla
+                } else {
+                    mostrarAdvertencia("No se encontró ningún préstamo con los IDs proporcionados.");
                 }
-            }else if(!idPrestamoABuscar.isEmpty()){
+            } else if (!idPrestamoABuscar.isEmpty()) {
                 Prestamo prestamo = prestamoDAO.getPrestamoByPrestamoId(Integer.parseInt(idPrestamoABuscar));
-                if(prestamo != null){
+                if (prestamo != null) {
                     tvPrestamos.getItems().clear(); // Limpiar la tabla
-                    tvPrestamos.getItems().add(prestamo); // Agregar el prestamo encontrado a la tabla
-                }else{
-                    mostrarAdvertencia("No se encontró ningún prestamo con el ID proporcionado");
+                    tvPrestamos.getItems().add(prestamo); // Agregar el préstamo encontrado a la tabla
+                } else {
+                    mostrarAdvertencia("No se encontró ningún préstamo con el ID proporcionado.");
                 }
-            } else if(!idSocioABuscar.isEmpty()){
+            } else if (!idSocioABuscar.isEmpty()) {
                 List<Prestamo> prestamos = prestamoDAO.getPrestamoBySocioId(Integer.parseInt(idSocioABuscar));
-                if(!prestamos.isEmpty()){
+                if (!prestamos.isEmpty()) {
                     tvPrestamos.getItems().clear(); // Limpiar la tabla
-                    tvPrestamos.getItems().addAll(prestamos); // Agregar los prestamos encontrados a la tabla
-                } else{
-                    mostrarAdvertencia("No se encontró ningún prestamo con el IdSocio proporcionado.");
+                    tvPrestamos.getItems().addAll(prestamos); // Agregar los préstamos encontrados a la tabla
+                } else {
+                    mostrarAdvertencia("No se encontró ningún préstamo con el ID de socio proporcionado.");
                 }
-
-            } else if(!idEjemplarABuscar.isEmpty()){
+            } else if (!idEjemplarABuscar.isEmpty()) {
                 List<Prestamo> prestamos = prestamoDAO.getPrestamoByEjemplarId(Integer.parseInt(idEjemplarABuscar));
-                if(!prestamos.isEmpty()){
+                if (!prestamos.isEmpty()) {
                     tvPrestamos.getItems().clear(); // Limpiar la tabla
-                    tvPrestamos.getItems().addAll(prestamos); // Agregar los prestamos encontrados a la tabla
-                } else{
-                    mostrarAdvertencia("No se encontró ningún prestamo con el idEjemplar proporcionado");
+                    tvPrestamos.getItems().addAll(prestamos); // Agregar los préstamos encontrados a la tabla
+                } else {
+                    mostrarAdvertencia("No se encontró ningún préstamo con el ID de ejemplar proporcionado.");
                 }
-            }else{
-                mostrarAdvertencia("Solo se puede filtrar por los 3 campos a la vez o de manera individual");
+            } else {
+                mostrarAdvertencia("Solo se puede filtrar por los tres campos a la vez o de manera individual.");
             }
-
         } catch (SQLException e) {
-            mostrarError("Error al buscar el prestamo: " + e.getMessage());
-        } catch (IllegalArgumentException e){
-            mostrarAdvertencia("Error al buscar al el prestamo: " + e.getMessage());
+            mostrarError("Error al buscar el préstamo: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            mostrarAdvertencia("Error al buscar el préstamo: " + e.getMessage());
         }
     }
 
+    /**
+     * Maneja el evento de buscar préstamos por rango de fechas.
+     *
+     * @param event El evento de acción.
+     */
     @FXML
-    private void onClickBuscarFecha(ActionEvent event){
+    private void onClickBuscarFecha(ActionEvent event) {
         String fechaInicioBuscar = tfFechaInicioBuscar.getText().trim();
         String fechaFinBuscar = tfFechaFinBuscar.getText().trim();
 
         try {
-            if(!fechaInicioBuscar.isEmpty() && !fechaFinBuscar.isEmpty() ){
-                if(fechaInicioBuscar.matches("\\d{4}-\\d{2}-\\d{2}") && fechaFinBuscar.matches("\\d{4}-\\d{2}-\\d{2}")){
-
-
-                List<Prestamo> prestamos = prestamoDAO.getPrestamosDate(fechaInicioBuscar, fechaFinBuscar);
-                if(!prestamos.isEmpty()){
-                    tvPrestamos.getItems().clear(); // Limpiar la tabla
-                    tvPrestamos.getItems().addAll(prestamos); // Agregar los prestamos encontrado a la tabla
-                } else{
-                    mostrarAdvertencia("No se encontró ningún prestamo entre esas fechas");
+            if (!fechaInicioBuscar.isEmpty() && !fechaFinBuscar.isEmpty()) {
+                if (fechaInicioBuscar.matches("\\d{4}-\\d{2}-\\d{2}") && fechaFinBuscar.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                    List<Prestamo> prestamos = prestamoDAO.getPrestamosDate(fechaInicioBuscar, fechaFinBuscar);
+                    if (!prestamos.isEmpty()) {
+                        tvPrestamos.getItems().clear(); // Limpiar la tabla
+                        tvPrestamos.getItems().addAll(prestamos); // Agregar los préstamos encontrados a la tabla
+                    } else {
+                        mostrarAdvertencia("No se encontró ningún préstamo entre esas fechas.");
+                    }
+                } else {
+                    mostrarAdvertencia("El formato correcto de fecha es YYYY-MM-DD.");
                 }
-                }else{
-                    mostrarAdvertencia("El formato correcto de fecha es YYYY-MM-DD");
-                }
-            } else{
-                mostrarAdvertencia("Debes de introducir ambas fechas para buscar en ese rango");
+            } else {
+                mostrarAdvertencia("Debes introducir ambas fechas para buscar en ese rango.");
             }
-
         } catch (SQLException e) {
-            mostrarError("Error al buscar el prestamo: " + e.getMessage());
-        } catch (IllegalArgumentException e){
-            mostrarAdvertencia("Error al buscar el prestamo: " + e.getMessage());
+            mostrarError("Error al buscar el préstamo: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            mostrarAdvertencia("Error al buscar el préstamo: " + e.getMessage());
         }
     }
 
-
+    /**
+     * Maneja el evento de mostrar todos los préstamos.
+     *
+     * @param event El evento de acción.
+     */
     @FXML
     private void onClickMostrarTodos(ActionEvent event) {
         cargarTodosLosPrestamos();
     }
+
+    /**
+     * Maneja el evento de mostrar todos los préstamos morosos.
+     *
+     * @param event El evento de acción.
+     */
     @FXML
-    private void onClickMorosos(ActionEvent event){
+    private void onClickMorosos(ActionEvent event) {
         cargarMorosos();
     }
 
+    /**
+     * Maneja el evento de selección de un préstamo en la TableView.
+     */
     @FXML
     private void onClickTvPrestamos() {
         Prestamo prestamoSeleccionado = tvPrestamos.getSelectionModel().getSelectedItem();
@@ -273,6 +310,9 @@ public class PrestamoController implements Initializable {
         }
     }
 
+    /**
+     * Carga todos los préstamos en la TableView.
+     */
     private void cargarTodosLosPrestamos() {
         try {
             List<Prestamo> prestamos = prestamoDAO.getAllPrestamos();
@@ -283,7 +323,10 @@ public class PrestamoController implements Initializable {
         }
     }
 
-    private void cargarMorosos(){
+    /**
+     * Carga todos los préstamos morosos en la TableView.
+     */
+    private void cargarMorosos() {
         try {
             List<Prestamo> prestamos = prestamoDAO.selectPrestamoMorosos();
             tvPrestamos.getItems().clear();
@@ -292,6 +335,12 @@ public class PrestamoController implements Initializable {
             mostrarError("Error al cargar los préstamos: " + e.getMessage());
         }
     }
+
+    /**
+     * Obtiene los datos del formulario y los convierte en un objeto Prestamo.
+     *
+     * @return Un objeto Prestamo con los datos del formulario, o null si hay errores.
+     */
     @FXML
     private Prestamo obtenerDatosPrestamoDeFormulario() {
         int idPrestamo;
@@ -312,14 +361,19 @@ public class PrestamoController implements Initializable {
         }
 
         try {
-            Prestamo prestamo = new Prestamo(idPrestamo, idEjemplar,idSocio, fechaInicio, fechaFin,libroISBN, estado);
+            Prestamo prestamo = new Prestamo(idPrestamo, idEjemplar, idSocio, fechaInicio, fechaFin, libroISBN, estado);
             return prestamo;
         } catch (IllegalArgumentException e) {
-            mostrarAdvertencia("Error al crear el prestamo: " + e.getMessage());
+            mostrarAdvertencia("Error al crear el préstamo: " + e.getMessage());
             return null;
         }
     }
 
+    /**
+     * Muestra los datos de un préstamo en el formulario.
+     *
+     * @param prestamo El préstamo cuyos datos se mostrarán.
+     */
     private void mostrarDatosPrestamoEnFormulario(Prestamo prestamo) {
         tfIdPrestamo.setText(String.valueOf(prestamo.getIdPrestamo()));
         tfIdEjemplar.setText(String.valueOf(prestamo.getIdEjemplar()));
@@ -330,6 +384,9 @@ public class PrestamoController implements Initializable {
         tfEstado.setText(prestamo.getEstado());
     }
 
+    /**
+     * Limpia los campos del formulario.
+     */
     private void limpiarFormulario() {
         tfIdPrestamo.clear();
         tfIdEjemplar.clear();
@@ -340,6 +397,11 @@ public class PrestamoController implements Initializable {
         tfEstado.clear();
     }
 
+    /**
+     * Muestra un mensaje de error.
+     *
+     * @param mensaje El mensaje de error a mostrar.
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -348,6 +410,11 @@ public class PrestamoController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje de advertencia.
+     *
+     * @param mensaje El mensaje de advertencia a mostrar.
+     */
     private void mostrarAdvertencia(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Advertencia");
@@ -356,6 +423,13 @@ public class PrestamoController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * Muestra un mensaje informativo.
+     *
+     * @param titulo   El título del mensaje.
+     * @param contenido El contenido del mensaje.
+     * @param tipo     El tipo de alerta.
+     */
     private void mostrarMensaje(String titulo, String contenido, Alert.AlertType tipo) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
@@ -366,7 +440,8 @@ public class PrestamoController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Método requerido por Initializable
     }
 }
+
 
