@@ -1,4 +1,4 @@
-module com.example.proyectofinal {
+module com.example.proyectofinal.biblioteca {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;

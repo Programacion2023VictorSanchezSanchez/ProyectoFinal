@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -27,15 +28,24 @@
                 <TextField fx:id="tfApellidos" promptText="Apellidos" />
             <Label fx:id="lbTelefono" text="Telefono" />
             <TextField fx:id="tfTelefono" promptText="Telefono" />
-                <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" text="Guardar" />
-                <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" text="Borrar" />
-            <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" text="Modificar" />
-            <TextField fx:id="tfIdBuscar" promptText="idSocio a buscar" />
+            <Label fx:id="lbEmail" text="Email" />
+            <TextField fx:id="tfEmail" promptText="Email" />
+            <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                      <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" text="Guardar" />
+                      <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" text="Borrar" />
+                  <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" text="Modificar" />
+               </children>
+            </HBox>
+            <TextField fx:id="tfIdBuscar" promptText="idSocio a buscar">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin></TextField>
             <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onClickBuscar" text="Buscar" />
             <Button fx:id="btMostrarTodos" mnemonicParsing="false" onAction="#onClickMostrarTodos" text="Mostrar Todos" />
             </children>
         </VBox>
-        <TableView fx:id="tvAlumnos" onMouseClicked="#onClickTvAlumnos" prefHeight="632.0" prefWidth="562.0">
+        <TableView fx:id="tvSocios" onMouseClicked="#onClickTvAlumnos" prefHeight="632.0" prefWidth="562.0">
             <columns>
                 <TableColumn fx:id="tcIdSocio" prefWidth="76.0" text="idSocio" />
                 <TableColumn fx:id="tcNombre" prefWidth="134.0" text="Nombre" />

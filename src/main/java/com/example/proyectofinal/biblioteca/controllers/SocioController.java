@@ -1,7 +1,10 @@
 package com.example.proyectofinal.biblioteca.controllers;
 
+import com.example.proyectofinal.biblioteca.model.Socio;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -9,7 +12,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class SocioController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class SocioController implements Initializable {
+
+    private ObservableList<Socio> listaSocios;
 
     @FXML
     private Button btBorrar;
@@ -28,6 +36,9 @@ public class SocioController {
 
     @FXML
     private Label lbApellidos;
+
+    @FXML
+    private Label lbEmail;
 
     @FXML
     private Label lbIdSocio;
@@ -57,6 +68,9 @@ public class SocioController {
     private TextField tfApellidos;
 
     @FXML
+    private TextField tfEmail;
+
+    @FXML
     private TextField tfIdBuscar;
 
     @FXML
@@ -69,7 +83,7 @@ public class SocioController {
     private TextField tfTelefono;
 
     @FXML
-    private TableView<?> tvAlumnos;
+    private TableView<?> tvSocios;
 
     @FXML
     void onClickBorrar(ActionEvent event) {
@@ -100,6 +114,10 @@ public class SocioController {
     void onClickTvAlumnos(MouseEvent event) {
 
     }
+    public void initialize(ObservableList<Socio> listaSocios){ }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) { }
 
 }
+
 

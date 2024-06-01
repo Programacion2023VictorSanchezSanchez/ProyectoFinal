@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="473.0" prefWidth="671.0" style="-fx-background-color: LightBlue;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.proyectofinal.biblioteca.controllers.BibliotecaController">
+<children>
+    <ImageView fitHeight="201.0" fitWidth="306.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../images/Biblioteca.jpg" />
+        </image>
+    </ImageView>
+    <Button fx:id="btAutores" layoutX="67.0" layoutY="347.0" mnemonicParsing="false" onAction="#onClickAutores" prefHeight="63.0" prefWidth="122.0" style="-fx-background-color: #40E0D0;" text="Autores" />
+    <Button fx:id="btSocios" layoutX="67.0" layoutY="259.0" mnemonicParsing="false" onAction="#onClickSocios" prefHeight="63.0" prefWidth="122.0" style="-fx-background-color: #40E0D0;" text="Socios" />
+      <Text fill="#11646f" layoutX="490.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Biblioteca" wrappingWidth="166.673828125">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Text>
+      <Button fx:id="btLibros" layoutX="275.0" layoutY="259.0" mnemonicParsing="false" onAction="#onClickLibros" prefHeight="63.0" prefWidth="122.0" style="-fx-background-color: #40E0D0;" text="Libros" />
+      <Button fx:id="btGeneros" layoutX="275.0" layoutY="347.0" mnemonicParsing="false" onAction="#onClickGeneros" prefHeight="63.0" prefWidth="122.0" style="-fx-background-color: #40E0D0;" text="Generos" />
+      <Button fx:id="btEjemplaresDisponibles" layoutX="490.0" layoutY="259.0" mnemonicParsing="false" onAction="#onClickEjemplaresDisponibles" prefHeight="63.0" prefWidth="151.0" style="-fx-background-color: #40E0D0;" text="Ejemplares Disponibles" />
+      <Button fx:id="btLibrosGenero" layoutX="490.0" layoutY="347.0" mnemonicParsing="false" onAction="#onClickLibrosGenero" prefHeight="63.0" prefWidth="151.0" style="-fx-background-color: #40E0D0;" text="Libros por Genero" />
+      <Button fx:id="btPrestamos" layoutX="493.0" layoutY="86.0" mnemonicParsing="false" onAction="#onClickPrestamos" prefHeight="63.0" prefWidth="134.0" style="-fx-background-color: #40E0D0;" text="Prestamos" />
+</children>
+</AnchorPane>
