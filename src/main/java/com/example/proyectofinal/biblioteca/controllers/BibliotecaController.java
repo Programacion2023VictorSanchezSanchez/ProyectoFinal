@@ -59,7 +59,7 @@ public class BibliotecaController {
 
     @FXML
     void onClickLibrosGenero(ActionEvent event) {
-
+        abrirLibroGenero();
     }
 
     @FXML
@@ -135,6 +135,25 @@ public class BibliotecaController {
 
             GeneroController generoController=loader.getController();
             generoController.initialize();
+            Scene scene= new Scene(root);
+
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Generos");
+            stage.setScene(scene);
+            stage.showAndWait();
+        }catch (IOException e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    private void abrirLibroGenero(){
+        try{
+            FXMLLoader loader = new FXMLLoader(BibliotecaAPP.class.getResource("views/libroGenero-view.fxml"));
+            Parent root = loader.load();
+
+            LibroGeneroController libroGeneroController=loader.getController();
+            libroGeneroController.initialize();
             Scene scene= new Scene(root);
 
             Stage stage = new Stage();

@@ -70,6 +70,9 @@ public class SocioController implements Initializable {
     private TextField tfIdBuscar;
 
     @FXML
+    private TextField tfNombreBuscar;
+
+    @FXML
     private TextField tfIdSocio;
 
     @FXML
@@ -141,24 +144,41 @@ public class SocioController implements Initializable {
 
     @FXML
     private void onClickBuscar(ActionEvent event) {
-        int idSocioABuscar;
-        try {
-            idSocioABuscar = Integer.parseInt(tfIdBuscar.getText());
-        } catch (NumberFormatException e) {
-            mostrarAdvertencia("El ID del socio a buscar debe ser un número entero.");
-            return;
-        }
+        String idSocioABuscar = tfIdBuscar.getText().trim();
+        String nombreABuscar = tfNombreBuscar.getText().trim();
 
         try {
-            Socio socioEncontrado = socioDAO.getSocioByid(idSocioABuscar);
-            if (socioEncontrado != null) {
-                tvSocios.getItems().clear(); // Limpiar la tabla
-                tvSocios.getItems().add(socioEncontrado); // Agregar el socio encontrado a la tabla
-            } else {
-                mostrarAdvertencia("No se encontró ningún socio con el ID proporcionado.");
+            if(!idSocioABuscar.isEmpty() && !nombreABuscar.isEmpty() ){
+                Socio socioEncontrado = socioDAO.getSocioByidName(Integer.parseInt(idSocioABuscar), nombreABuscar);
+                if(socioEncontrado != null){
+                    tvSocios.getItems().clear(); // Limpiar la tabla
+                    tvSocios.getItems().add(socioEncontrado); // Agregar el socio encontrado a la tabla
+                } else{
+                    mostrarAdvertencia("No se encontró ningún socio con el ID y el nombre proporcionado.");
+                }
+            }else if(!idSocioABuscar.isEmpty()){
+                Socio socioEncontrado = socioDAO.getSocioByid(Integer.parseInt(idSocioABuscar));
+                if(socioEncontrado != null){
+                    tvSocios.getItems().clear(); // Limpiar la tabla
+                    tvSocios.getItems().add(socioEncontrado); // Agregar el socio encontrado a la tabla
+                }else{
+                    mostrarAdvertencia("No se encontró ningún socio con el ID proporcionado.");
+                }
+            } else{
+                List<Socio> listaSocios = socioDAO.getSociosByName(nombreABuscar);
+                if(!listaSocios.isEmpty()){
+                    tvSocios.getItems().clear(); // Limpiar la tabla
+                    tvSocios.getItems().addAll(listaSocios); // Agregar el socio encontrado a la tabla
+                } else{
+                    mostrarAdvertencia("No se encontró ningún socio con el Nombre proporcionado.");
+                }
+
             }
+
         } catch (SQLException e) {
             mostrarError("Error al buscar el socio: " + e.getMessage());
+        } catch (NumberFormatException e){
+            mostrarAdvertencia("El id del socio debe de ser un número entero.");
         }
     }
 

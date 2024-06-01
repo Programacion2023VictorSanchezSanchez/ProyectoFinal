@@ -2,6 +2,7 @@ package com.example.proyectofinal.biblioteca.controllers;
 
 import com.example.proyectofinal.biblioteca.db.LibroDAO;
 import com.example.proyectofinal.biblioteca.model.Libro;
+import com.example.proyectofinal.biblioteca.model.Socio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -70,6 +71,9 @@ public class LibroController implements Initializable {
     private TextField tfISBNBuscar;
 
     @FXML
+    private TextField tfTituloBuscar;
+
+    @FXML
     private TableView<Libro> tvLibros;
 
     private final LibroDAO libroDAO = new LibroDAO();
@@ -134,18 +138,41 @@ public class LibroController implements Initializable {
 
     @FXML
     private void onClickBuscar(ActionEvent event) {
-        String ISBNABuscar = tfISBNBuscar.getText().trim();
+        String isbnABuscar = tfISBNBuscar.getText().trim();
+        String tituloABuscar = tfTituloBuscar.getText().trim();
 
         try {
-            Libro libroEncontrado = libroDAO.getLibroByISBN(ISBNABuscar);
-            if (libroEncontrado != null) {
-                tvLibros.getItems().clear(); // Limpiar la tabla
-                tvLibros.getItems().add(libroEncontrado); // Agregar el libro encontrado a la tabla
-            } else {
-                mostrarAdvertencia("No se encontró ningún libro con el ISBN proporcionado.");
+            if(!isbnABuscar.isEmpty() && !tituloABuscar.isEmpty() ){
+                Libro libroEncontrado = libroDAO.getLibroByISBNTitle(isbnABuscar, tituloABuscar);
+                if(libroEncontrado != null){
+                    tvLibros.getItems().clear(); // Limpiar la tabla
+                    tvLibros.getItems().add(libroEncontrado); // Agregar el libro encontrado a la tabla
+                } else{
+                    mostrarAdvertencia("No se encontró ningún libro con el ISBN y el titulo proporcionado.");
+                }
+            }else if(!isbnABuscar.isEmpty()){
+                Libro libroEncontrado = libroDAO.getLibroByISBN(isbnABuscar);
+                if(libroEncontrado != null){
+                    tvLibros.getItems().clear(); // Limpiar la tabla
+                    tvLibros.getItems().add(libroEncontrado); // Agregar el libro encontrado a la tabla
+                }else{
+                    mostrarAdvertencia("No se encontró ningún libro con el ISBN proporcionado.");
+                }
+            } else{
+                List<Libro> listaLibros = libroDAO.getLibrosByTitle(tituloABuscar);
+                if(!listaLibros.isEmpty()){
+                    tvLibros.getItems().clear(); // Limpiar la tabla
+                    tvLibros.getItems().addAll(listaLibros); // Agregar el libro encontrado a la tabla
+                } else{
+                    mostrarAdvertencia("No se encontró ningún libro con el titulo proporcionado.");
+                }
+
             }
+
         } catch (SQLException e) {
             mostrarError("Error al buscar el libro: " + e.getMessage());
+        } catch (IllegalArgumentException e){
+            mostrarAdvertencia("Error al buscar el libro: " + e.getMessage());
         }
     }
 

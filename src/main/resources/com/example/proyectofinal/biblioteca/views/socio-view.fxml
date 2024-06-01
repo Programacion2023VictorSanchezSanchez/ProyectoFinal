@@ -20,41 +20,45 @@
                         <Image url="@../images/socio.jpg" />
                     </image>
                 </ImageView>
-                <Label fx:id="lbIdSocio" alignment="BOTTOM_LEFT" contentDisplay="CENTER" text="idSocio" style="-fx-text-fill: #333333;" />
+                <Label fx:id="lbIdSocio" alignment="BOTTOM_LEFT" contentDisplay="CENTER" style="-fx-text-fill: #333333;" text="idSocio" />
                 <TextField fx:id="tfIdSocio" prefHeight="25.0" prefWidth="95.0" promptText="idSocio" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-                <Label fx:id="lbNombre" text="Nombre" style="-fx-text-fill: #333333;" />
+                <Label fx:id="lbNombre" style="-fx-text-fill: #333333;" text="Nombre" />
                 <TextField fx:id="tfNombre" promptText="nombre" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-                <Label fx:id="lbApellidos" text="Apellidos" style="-fx-text-fill: #333333;" />
+                <Label fx:id="lbApellidos" style="-fx-text-fill: #333333;" text="Apellidos" />
                 <TextField fx:id="tfApellidos" promptText="Apellidos" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-                <Label fx:id="lbTelefono" text="Telefono" style="-fx-text-fill: #333333;" />
+                <Label fx:id="lbTelefono" style="-fx-text-fill: #333333;" text="Telefono" />
                 <TextField fx:id="tfTelefono" promptText="Telefono" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
-                <Label fx:id="lbEmail" text="Email" style="-fx-text-fill: #333333;" />
+                <Label fx:id="lbEmail" style="-fx-text-fill: #333333;" text="Email" />
                 <TextField fx:id="tfEmail" promptText="Email" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;" />
                 <HBox alignment="CENTER" prefHeight="26.0" prefWidth="200.0" spacing="5.0">
                     <children>
-                        <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" text="Guardar" style="-fx-background-color: #4CAF50; -fx-text-fill: #ffffff;" />
-                        <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" text="Borrar" style="-fx-background-color: #f44336; -fx-text-fill: #ffffff;" />
-                        <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" text="Modificar" style="-fx-background-color: #ff9800; -fx-text-fill: #ffffff;" />
+                        <Button fx:id="btGuardar" mnemonicParsing="false" onAction="#onClickGuardar" style="-fx-background-color: #4CAF50; -fx-text-fill: #ffffff;" text="Guardar" />
+                        <Button fx:id="btBorrar" mnemonicParsing="false" onAction="#onClickBorrar" prefHeight="25.0" prefWidth="57.0" style="-fx-background-color: #f44336; -fx-text-fill: #ffffff;" text="Borrar" />
+                        <Button fx:id="btModificar" mnemonicParsing="false" onAction="#onClickModificar" style="-fx-background-color: #ff9800; -fx-text-fill: #ffffff;" text="Modificar" />
                     </children>
                 </HBox>
+            <TextField fx:id="tfNombreBuscar" promptText="nombre a buscar">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </TextField>
                 <TextField fx:id="tfIdBuscar" promptText="idSocio a buscar" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
                     <VBox.margin>
-                        <Insets top="50.0" />
+                        <Insets />
                     </VBox.margin>
                 </TextField>
-                <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onClickBuscar" text="Buscar" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" />
-                <Button fx:id="btMostrarTodos" mnemonicParsing="false" onAction="#onClickMostrarTodos" text="Mostrar Todos" style="-fx-background-color: #009688; -fx-text-fill: #ffffff;" />
+                <Button fx:id="btBuscar" mnemonicParsing="false" onAction="#onClickBuscar" style="-fx-background-color: #2196F3; -fx-text-fill: #ffffff;" text="Buscar" />
+                <Button fx:id="btMostrarTodos" mnemonicParsing="false" onAction="#onClickMostrarTodos" style="-fx-background-color: #009688; -fx-text-fill: #ffffff;" text="Mostrar Todos" />
             </children>
         </VBox>
         <TableView fx:id="tvSocios" onMouseClicked="#onClickTvAlumnos" prefHeight="632.0" prefWidth="562.0" style="-fx-background-color: #ffffff; -fx-border-color: #cccccc;">
             <columns>
-                <TableColumn fx:id="tcIdSocio" prefWidth="76.0" text="idSocio" style="-fx-text-fill: #333333;" />
-                <TableColumn fx:id="tcNombre" prefWidth="134.0" text="Nombre" style="-fx-text-fill: #333333;" />
-                <TableColumn fx:id="tcApellidos" minWidth="0.0" prefWidth="127.0" text="Apellidos" style="-fx-text-fill: #333333;" />
-                <TableColumn fx:id="tcTelefono" prefWidth="110.0" text="Telefono" style="-fx-text-fill: #333333;" />
-                <TableColumn fx:id="tcEmail" prefWidth="120.0" text="Email" style="-fx-text-fill: #333333;" />
+                <TableColumn fx:id="tcIdSocio" prefWidth="76.0" style="-fx-text-fill: #333333;" text="idSocio" />
+                <TableColumn fx:id="tcNombre" prefWidth="134.0" style="-fx-text-fill: #333333;" text="Nombre" />
+                <TableColumn fx:id="tcApellidos" minWidth="0.0" prefWidth="127.0" style="-fx-text-fill: #333333;" text="Apellidos" />
+                <TableColumn fx:id="tcTelefono" prefWidth="110.0" style="-fx-text-fill: #333333;" text="Telefono" />
+                <TableColumn fx:id="tcEmail" prefWidth="120.0" style="-fx-text-fill: #333333;" text="Email" />
             </columns>
         </TableView>
     </children>
 </HBox>
-

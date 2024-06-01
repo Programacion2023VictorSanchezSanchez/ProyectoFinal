@@ -31,12 +31,8 @@ public class LibroGenero {
         }
 
     }
-    public void setGeneroNombre(String generoNombre) throws IllegalArgumentException {
-        if(generoNombre == null || generoNombre.isEmpty()){
-            throw new IllegalArgumentException("El nombre no puede estar vacío");
-        }else{
+    public void setGeneroNombre(String generoNombre) {
             this.generoNombre = generoNombre;
-        }
 
     }
 

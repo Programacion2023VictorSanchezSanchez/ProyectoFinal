@@ -1,5 +1,6 @@
 package com.example.proyectofinal.biblioteca.db;
 
+import com.example.proyectofinal.biblioteca.model.LibroGenero;
 import com.example.proyectofinal.biblioteca.model.Socio;
 
 import java.sql.Connection;
@@ -17,6 +18,10 @@ public class SocioDAO {
     private static final String INSERT_QUERY = "INSERT INTO Socio (nombre, apellidos, telefono, email) VALUES (?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Socio";
     private static final String SELECT_BY_ID_QUERY = "SELECT * FROM Socio WHERE idSocio = ?";
+
+    private static final String SELECT_BY_NAME_QUERY = "SELECT * FROM Socio WHERE nombre = ?";
+
+    private static final String SELECT_BY_NAME_ID_QUERY = "SELECT * FROM Socio WHERE idSocio = ? AND nombre = ?";
     private static final String UPDATE_QUERY = "UPDATE Socio SET nombre = ?, apellidos = ?, email = ? WHERE idSocio = ?";
     private static final String DELETE_QUERY = "DELETE FROM Socio WHERE idSocio = ?";
 
@@ -45,11 +50,39 @@ public class SocioDAO {
         return socios;
     }
 
-    // Método para obtener una persona por su DNI
+    // Método para obtener una persona por su id
     public Socio getSocioByid(int idSocio) throws SQLException {
         Socio socio = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ID_QUERY)) {
             statement.setInt(1, idSocio);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                socio = resultSetToSocio(resultSet);
+            }
+        }
+        return socio;
+    }
+
+    // Método para obtener una persona por su nombre
+    public List<Socio> getSociosByName(String nombre) throws SQLException {
+        List<Socio> socios = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_NAME_QUERY)) {
+            statement.setString(1, nombre);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Socio socio = resultSetToSocio(resultSet);
+                socios.add(socio);
+            }
+        }
+        return socios;
+    }
+
+    // Método para obtener una persona por su id y nombre
+    public Socio getSocioByidName(int idSocio, String nombre) throws SQLException {
+        Socio socio = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_NAME_ID_QUERY)) {
+            statement.setInt(1, idSocio);
+            statement.setString(2, nombre);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 socio = resultSetToSocio(resultSet);

@@ -1,6 +1,7 @@
 package com.example.proyectofinal.biblioteca.db;
 
 import com.example.proyectofinal.biblioteca.model.Libro;
+import com.example.proyectofinal.biblioteca.model.Socio;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +18,10 @@ public class LibroDAO {
     private static final String INSERT_QUERY = "INSERT INTO Libro (ISBN, titulo, idAutor, anyo) VALUES (?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM Libro";
     private static final String SELECT_BY_ISBN_QUERY = "SELECT * FROM Libro WHERE ISBN = ?";
+
+    private static final String SELECT_BY_ISBN_TITLE_QUERY = "SELECT * FROM Libro WHERE ISBN = ? AND titulo = ?";
+
+    private static final String SELECT_BY_TITLE_QUERY = "SELECT * FROM Libro WHERE titulo = ?";
     private static final String UPDATE_QUERY = "UPDATE Libro SET titulo = ?, idAutor = ?, anyo = ? WHERE ISBN = ?";
     private static final String DELETE_QUERY = "DELETE FROM Libro WHERE ISBN = ?";
 
@@ -49,6 +54,34 @@ public class LibroDAO {
         Libro libro = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_QUERY)) {
             statement.setString(1, ISBN);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                libro = resultSetToLibro(resultSet);
+            }
+        }
+        return libro;
+    }
+
+    // Método para obtener un libro por su titulo
+    public List<Libro> getLibrosByTitle(String titulo) throws SQLException {
+        List <Libro> listaLibros = new ArrayList<>();
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_TITLE_QUERY)) {
+            statement.setString(1, titulo);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Libro libro = resultSetToLibro(resultSet);
+                listaLibros.add(libro);
+            }
+        }
+        return listaLibros;
+    }
+
+    // Método para obtener una persona por su id y nombre
+    public Libro getLibroByISBNTitle(String ISBN, String titulo) throws SQLException {
+        Libro libro = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_ISBN_TITLE_QUERY)) {
+            statement.setString(1, ISBN);
+            statement.setString(2, titulo);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 libro = resultSetToLibro(resultSet);
