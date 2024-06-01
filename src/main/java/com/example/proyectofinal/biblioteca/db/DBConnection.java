@@ -12,6 +12,7 @@ public class DBConnection {
 
     private static Connection connection;
 
+
     // Constructor privado para evitar instancias directas
     private DBConnection() {}
 

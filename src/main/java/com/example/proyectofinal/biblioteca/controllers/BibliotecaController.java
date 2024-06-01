@@ -16,8 +16,6 @@ import java.io.IOException;
 
 public class BibliotecaController {
 
-    private ObservableList<Socio> listaSocios;
-
     @FXML
     private Button btAutores;
 
@@ -79,7 +77,7 @@ public class BibliotecaController {
             Parent root = loader.load();
 
             SocioController socioController=loader.getController();
-            socioController.initialize(listaSocios);
+            socioController.initialize();
             Scene scene= new Scene(root);
 
             Stage stage = new Stage();
