@@ -98,10 +98,7 @@ public class Prestamo {
         }
         this.fechaInicio = fechaInicio;
     }
-    public void setFechaFin(String fechaFin) throws IllegalArgumentException {
-        if (!fechaFin.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            throw new IllegalArgumentException("La fecha debe de tener formato YYYY-MM-DD");
-        }
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
     public void setEstado(String estado) throws IllegalArgumentException {
